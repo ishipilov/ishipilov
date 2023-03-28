@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('welcome');
+Route::redirect('/', '/home');
 
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::resource('articles', ArticleController::class);
+
+
 
 Route::middleware('auth')->get('/hash/{q?}', function (Illuminate\Http\Request $request) {
 	$text = $request->q ?: Illuminate\Support\Str::random(8);
