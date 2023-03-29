@@ -16,6 +16,19 @@ class StoreArticle extends FormRequest
         return true;
     }
 
+	/**
+	 * Get custom attributes for validator errors.
+	 *
+	 * @return array
+	 */
+	public function attributes()
+	{
+		return [
+			'title' => 'Title',
+			'text' => 'Text',
+		];
+	}
+
     /**
      * Get the validation rules that apply to the request.
      *
