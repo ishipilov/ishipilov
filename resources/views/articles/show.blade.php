@@ -4,7 +4,9 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ $article->title }}</h5>
+            @if ($article->title)
+                <h5 class="card-title">{{ $article->title }}</h5>
+            @endif
             <p class="card-text">{{ $article->text }}</p>
             <small>{{ $article->user->name }}</small>
         </div>
