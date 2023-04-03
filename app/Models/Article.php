@@ -27,9 +27,9 @@ class Article extends Model
 	 * @param  string  $value
 	 * @return string
 	 */
-	public function getTitleAttribute($value)
+	public function getTitleSubAttribute($value)
 	{
-		if (! $value) return DateHelper::isoFormat($this->updated_at);
-		return $value;
+		if (! $this->title) return DateHelper::isoFormat($this->updated_at);
+		return $this->title;
 	}
 }
