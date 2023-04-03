@@ -7,7 +7,7 @@
             @if ($article->title)
                 <h5 class="card-title">{{ $article->title }}</h5>
             @endif
-            <p class="card-text">{{ $article->text }}</p>
+            <p class="card-text">{!! $article->text !!}</p>
             <small>{{ $article->user->name }}</small>
         </div>
         @canany(['update'], $article)
