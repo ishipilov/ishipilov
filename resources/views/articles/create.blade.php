@@ -32,3 +32,15 @@
 	</div>
 </div>
 @endsection
+
+@push('script')
+<script type="text/javascript">
+window.addEventListener('load', function() { $( document ).ready(function() {
+
+	$('#text').summernote({
+		
+	});
+
+});});
+</script>
+@endpush
