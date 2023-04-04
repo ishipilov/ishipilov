@@ -7,8 +7,17 @@
             @if ($article->title)
                 <h5 class="card-title">{{ $article->title }}</h5>
             @endif
-            <p class="card-text">{!! $article->text !!}</p>
-            <small>{{ $article->user->name }}</small>
+            <article>
+                {!! $article->text !!}
+            </article>
+            <div>
+                <hr>
+                <small class="text-muted">
+                    {{ DateHelper::isoFormat($article->updated_at) }}
+                    &mdash;
+                    {{ $article->user->name }}
+                </small>
+            </div>
         </div>
         @canany(['update'], $article)
             <div class="card-body">
