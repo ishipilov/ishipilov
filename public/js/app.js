@@ -2100,7 +2100,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     save: function save() {
-      if (this.selected) this.update();else this.store();
+      if (this.selected) {
+        this.update();
+        if (!this.input) this.selected = null;
+      } else {
+        this.store();
+      }
     },
     update: function update() {
       var _this = this;
@@ -2139,6 +2144,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios(requestData).then(function (response) {
         _this2.waiting = false;
+        if (response.status == 201) _this2.selected = response.data;
         _this2.load();
       })["catch"](function (error) {
         _this2.error = error.response;

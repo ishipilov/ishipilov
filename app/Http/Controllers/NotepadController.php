@@ -57,11 +57,11 @@ class NotepadController extends Controller
     {
         $attributes = $request->validated();
         try {
-            $note = new Notepad;
-            $note->text = $attributes['text'];
-            $note->user_id = $request->user()->id;
-            $note->save();
-            return response('Success.', 201);
+            $notepad = new Notepad;
+            $notepad->text = $attributes['text'];
+            $notepad->user_id = $request->user()->id;
+            $notepad->save();
+            return response($notepad, 201);
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return response($errors, 500);

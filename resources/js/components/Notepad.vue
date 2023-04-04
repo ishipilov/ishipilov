@@ -51,8 +51,12 @@ export default {
 			}
 		},
 		save: function () {
-			if (this.selected) this.update()
-			else this.store()
+			if (this.selected) {
+				this.update()
+				if (! this.input) this.selected = null
+			} else {
+				this.store()
+			}
 		},
 		update: function () {
 			this.waiting = true
@@ -87,6 +91,7 @@ export default {
 			axios(requestData)
 			.then((response) => {
 				this.waiting = false
+				if (response.status == 201) this.selected = response.data
 				this.load()
 			}).catch((error) => {
 				this.error = error.response
