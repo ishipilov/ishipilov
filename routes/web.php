@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotepadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('articles', ArticleController::class);
 
+Route::resource('notepad', NotepadController::class)->only(['index','store','update']);
 
+/**
+ * 
+ */
 
 Route::middleware('auth')->get('/hash/{q?}', function (Illuminate\Http\Request $request) {
 	$text = $request->q ?: Illuminate\Support\Str::random(8);

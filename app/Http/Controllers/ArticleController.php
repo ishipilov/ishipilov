@@ -19,7 +19,6 @@ class ArticleController extends Controller
 		$this->authorizeResource(Article::class, 'article');
 	}
 
-
     /**
      * Display a listing of the resource.
      *
