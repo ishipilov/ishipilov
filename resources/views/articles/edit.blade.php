@@ -34,7 +34,7 @@
             <div class="card-body">
                 @can('delete', $article)
                     <a href="{{ route('articles.destroy', $article) }}" class="card-link" onclick="event.preventDefault();
-                    document.getElementById('{{ 'article-delete-' . $article->id }}').submit();">{{ __('Delete') }}</a>
+                    if (confirm('Delete article?')) { document.getElementById('{{ 'article-delete-' . $article->id }}').submit(); }">{{ __('Delete') }}</a>
                     <form id="{{ 'article-delete-' . $article->id }}" action="{{ route('articles.destroy', $article->id) }}" method="POST" class="d-none">
                         @csrf
                         @method('DELETE')
