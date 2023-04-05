@@ -1,32 +1,24 @@
 <template>
-	<div :id="id">
-    <slot name="notepad_slot" :on-show="onShow"/>
-		<!-- Modal -->
-		<div class="modal fade" id="notepadModal" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Notepad</h5>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<textarea v-model="input" class="form-control" id="text" name="text" rows="6" :disabled="waiting"></textarea>
-							</div>
-							<button type="submit" class="btn btn-success btn-sm" :disabled="waiting || !(selected || input)" @click.prevent="save">Save</button>
-							<button type="submit" class="btn btn-primary btn-sm" :disabled="waiting || !input" @click.prevent="store">Save as new</button>
-						</form>
-					</div>
-					<div class="list-group list-group-flush rounded">
-						<template v-for="note in notes" v-key="note.id">
-							<button type="button" class="list-group-item list-group-item-action text-truncate" :class="{ active: selected && selected.id == note.id }" :disabled="waiting" @click.prevent="select(note)">{{ note.text }}</button>
-						</template>
-					</div>
-				</div>
-			</div>
+	<div class="card">
+		<div class="card-header">
+			<span>Notepad</span>
+			<span v-if="waiting">&mdash; Wait...</span>
 		</div>
-  </div>
+		<div class="card-body">
+			<form>
+				<div class="form-group">
+					<textarea v-model="input" class="form-control" id="text" name="text" rows="3" :disabled="waiting"></textarea>
+				</div>
+				<button type="submit" class="btn btn-success btn-sm" :disabled="waiting || !(selected || input)" @click.prevent="save">Save</button>
+				<button type="submit" class="btn btn-primary btn-sm" :disabled="waiting || !input" @click.prevent="store">Save as new</button>
+			</form>
+		</div>
+		<div class="list-group list-group-flush">
+			<template v-for="note in notes" v-key="note.id">
+				<button type="button" class="list-group-item list-group-item-action text-truncate" :class="{ active: selected && selected.id == note.id }" :disabled="waiting" @click.prevent="select(note)">{{ note.text }}</button>
+			</template>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -47,12 +39,8 @@ export default {
 		}
   },
   created: function () { this.id = this.$options.name + this._uid },
-  mounted: function () {  },
+  mounted: function () { this.load() },
   methods: {
-		onShow: function () {
-			if (_.isEmpty(this.notes)) this.load()
-			$('#notepadModal').modal('show')
-		},
 		select: function (note) {
 			if (this.selected && this.selected.id == note.id) {
 				this.selected = null

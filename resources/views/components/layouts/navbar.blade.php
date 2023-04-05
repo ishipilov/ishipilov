@@ -10,10 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('articles.index') }}">{{ __('Articles') }}</a>
                 </li>
             </ul>
@@ -34,6 +34,13 @@
                         </li>
                     @endif
                 @else
+                    <li class="nav-item">
+                        <vue-notepad url="{{ route('notepad.index') }}">
+                            <template v-slot:notepad_slot="{ onShow }">
+                                    <a class="nav-link" href="#" @click.prevent="onShow">{{ __('Notepad') }}</a>
+                            </template>
+                        </vue-notepad>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}

@@ -2065,6 +2065,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'vue-notepad',
   props: {
@@ -2086,10 +2087,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.id = this.$options.name + this._uid;
   },
-  mounted: function mounted() {
-    this.load();
-  },
+  mounted: function mounted() {},
   methods: {
+    onShow: function onShow() {
+      if (_.isEmpty(this.notes)) this.load();
+      $('#notepadModal').modal('show');
+    },
     select: function select(note) {
       if (this.selected && this.selected.id == note.id) {
         this.selected = null;
@@ -2190,11 +2193,23 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "card"
+    attrs: {
+      id: _vm.id
+    }
+  }, [_vm._t("notepad_slot", null, {
+    onShow: _vm.onShow
+  }), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "notepadModal",
+      tabindex: "-1"
+    }
   }, [_c("div", {
-    staticClass: "card-header"
-  }, [_c("span", [_vm._v("Notepad")]), _vm._v(" "), _vm.waiting ? _c("span", [_vm._v("— Wait...")]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
+    staticClass: "modal-dialog"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
   }, [_c("form", [_c("div", {
     staticClass: "form-group"
   }, [_c("textarea", {
@@ -2208,7 +2223,7 @@ var render = function render() {
     attrs: {
       id: "text",
       name: "text",
-      rows: "3",
+      rows: "6",
       disabled: _vm.waiting
     },
     domProps: {
@@ -2220,11 +2235,11 @@ var render = function render() {
         _vm.input = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _vm.selected || _vm.input ? _c("button", {
+  })]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success btn-sm",
     attrs: {
       type: "submit",
-      disabled: _vm.waiting
+      disabled: _vm.waiting || !(_vm.selected || _vm.input)
     },
     on: {
       click: function click($event) {
@@ -2232,11 +2247,11 @@ var render = function render() {
         return _vm.save.apply(null, arguments);
       }
     }
-  }, [_vm._v("Save")]) : _vm._e(), _vm._v(" "), _vm.selected && _vm.input ? _c("button", {
+  }, [_vm._v("Save")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary btn-sm",
     attrs: {
       type: "submit",
-      disabled: _vm.waiting
+      disabled: _vm.waiting || !_vm.input
     },
     on: {
       click: function click($event) {
@@ -2244,8 +2259,8 @@ var render = function render() {
         return _vm.store.apply(null, arguments);
       }
     }
-  }, [_vm._v("Save as new")]) : _vm._e()])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group list-group-flush"
+  }, [_vm._v("Save as new")])])]), _vm._v(" "), _c("div", {
+    staticClass: "list-group list-group-flush rounded"
   }, [_vm._l(_vm.notes, function (note) {
     return [_c("button", {
       staticClass: "list-group-item list-group-item-action text-truncate",
@@ -2263,9 +2278,26 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(note.text))])];
-  })], 2)]);
+  })], 2)])])])], 2);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-header"
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm._v("Notepad")]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("×")])]);
+}];
 render._withStripped = true;
 
 

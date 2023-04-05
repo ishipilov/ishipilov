@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <vue-notepad url="{{ route('notepad.index') }}"></vue-notepad>
+    
 
 </div>
 @endsection
