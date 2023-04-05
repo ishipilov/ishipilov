@@ -3,16 +3,22 @@
     <slot name="notepad_slot" :on-show="onShow"/>
 		<!-- Modal -->
 		<div class="modal fade" id="notepadModal" tabindex="-1">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Notepad</h5>
+						<h5 class="modal-title" id="exampleModalLabel">
+							<template v-if="waiting">
+								<span class="spinner-border spinner-border-sm" role="status"></span>
+								<span>Wait...</span>
+							</template>
+							<template v-else><span>Notepad</span></template>
+						</h5>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
 						<form>
 							<div class="form-group">
-								<textarea v-model="input" class="form-control" id="text" name="text" rows="6" :disabled="waiting"></textarea>
+								<textarea v-model="input" class="form-control" id="notepad-text" name="text" rows="6" :disabled="waiting"></textarea>
 							</div>
 							<button type="submit" class="btn btn-success btn-sm" :disabled="waiting || !(selected || input)" @click.prevent="save">Save</button>
 							<button type="submit" class="btn btn-primary btn-sm" :disabled="waiting || !input" @click.prevent="store">Save as new</button>

@@ -2205,10 +2205,28 @@ var render = function render() {
       tabindex: "-1"
     }
   }, [_c("div", {
-    staticClass: "modal-dialog"
+    staticClass: "modal-dialog modal-lg"
   }, [_c("div", {
     staticClass: "modal-content"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "modal-header"
+  }, [_c("h5", {
+    staticClass: "modal-title",
+    attrs: {
+      id: "exampleModalLabel"
+    }
+  }, [_vm.waiting ? [_c("span", {
+    staticClass: "spinner-border spinner-border-sm",
+    attrs: {
+      role: "status"
+    }
+  }), _vm._v(" "), _c("span", [_vm._v("Wait...")])] : [_c("span", [_vm._v("Notepad")])]], 2), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c("div", {
     staticClass: "modal-body"
   }, [_c("form", [_c("div", {
     staticClass: "form-group"
@@ -2221,7 +2239,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      id: "text",
+      id: "notepad-text",
       name: "text",
       rows: "6",
       disabled: _vm.waiting
@@ -2280,24 +2298,7 @@ var render = function render() {
     }, [_vm._v(_vm._s(note.text))])];
   })], 2)])])])], 2);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "modal-header"
-  }, [_c("h5", {
-    staticClass: "modal-title",
-    attrs: {
-      id: "exampleModalLabel"
-    }
-  }, [_vm._v("Notepad")]), _vm._v(" "), _c("button", {
-    staticClass: "close",
-    attrs: {
-      type: "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v("×")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
