@@ -7,7 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>
+        @yield('page-title', Lang::get('routes.web.' . Route::currentRouteName())) | {{ config('app.name', 'Laravel') }}
+    </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}?v={{ Carbon\Carbon::now()->year . Carbon\Carbon::now()->weekOfYear }}" defer></script>

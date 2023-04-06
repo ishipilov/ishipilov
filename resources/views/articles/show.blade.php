@@ -1,5 +1,7 @@
 @extends('layouts.templates.default')
 
+@section('page-title', $article->titleSub)
+
 @section('content')
 <div class="container">
     <div class="card">
