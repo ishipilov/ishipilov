@@ -9,7 +9,7 @@
             @foreach ($articles as $article)
                 @can('view', $article)
                     <li class="list-group-item">
-                        <a class="text-decoration-none" href="{{ route('articles.show', $article) }}">{{ $article->titleSub }}</a>
+                        <a class="text-decoration-none @if ($article->user == Auth::user()) font-weight-bold @endif" href="{{ route('articles.show', $article) }}">{{ $article->titleSub }}</a>
                     </li>
                 @endcan
             @endforeach

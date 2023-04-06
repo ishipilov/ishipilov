@@ -27,14 +27,11 @@ class NotepadController extends Controller
      */
     public function index(Request $request)
     {
-        $notes = Notepad::all();
-        if ($request->wantsJson()) {
-            return [
-              'notes' => $notes,
-            ];
-        } else {
-            return abort(403);
-        }
+        $user = $request->user();
+        $notepad = $user->notepad;
+        return [
+            'notepad' => $notepad,
+        ];
     }
 
     /**
@@ -107,7 +104,7 @@ class NotepadController extends Controller
             } else {
                 $notepad->delete();
             }
-            return response('Success.', 201);
+            return response('Success.', 200);
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return response($errors, 500);

@@ -30,7 +30,7 @@ class NotepadPolicy
      */
     public function view(User $user, Notepad $notepad)
     {
-        //
+        return $user == $notepad->user;
     }
 
     /**
@@ -65,7 +65,7 @@ class NotepadPolicy
      */
     public function delete(User $user, Notepad $notepad)
     {
-        //
+        return $user == $notepad->user;
     }
 
     /**

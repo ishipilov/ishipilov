@@ -25,7 +25,7 @@
 						</form>
 					</div>
 					<div class="list-group list-group-flush rounded">
-						<template v-for="note in notes" v-key="note.id">
+						<template v-for="note in notepad" v-key="note.id">
 							<button type="button" class="list-group-item list-group-item-action text-truncate" :class="{ active: selected && selected.id == note.id }" :disabled="waiting" @click.prevent="select(note)">{{ note.text }}</button>
 						</template>
 					</div>
@@ -45,7 +45,7 @@ export default {
   data: function () {
 		return {
 			id: null,
-			notes: [],
+			notepad: [],
 			selected: null,
 			input: "",
 			waiting: false,
@@ -56,7 +56,7 @@ export default {
   mounted: function () {  },
   methods: {
 		onShow: function () {
-			if (_.isEmpty(this.notes)) this.load()
+			if (_.isEmpty(this.notepad)) this.load()
 			$('#notepadModal').modal('show')
 		},
 		select: function (note) {
@@ -125,7 +125,7 @@ export default {
 			}
 			axios(requestData)
 			.then((response) => {
-				this.notes = response.data.notes
+				this.notepad = response.data.notepad
 				this.waiting = false
 			}).catch((error) => {
 				this.error = error.response

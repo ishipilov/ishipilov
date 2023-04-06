@@ -28,7 +28,7 @@ Route::resource('articles', ArticleController::class);
 Route::resource('notepad', NotepadController::class)->only(['index','store','update']);
 
 /**
- * 
+ * MISC
  */
 
 Route::middleware('auth')->get('/hash/{q?}', function (Illuminate\Http\Request $request) {

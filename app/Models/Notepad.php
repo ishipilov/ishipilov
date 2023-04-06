@@ -12,7 +12,7 @@ class Notepad extends Model
     use SoftDeletes;
 
 	/**
-	 * Get the user that owns the article.
+	 * Get the user that owns the entity.
 	 */
 	public function user()
 	{

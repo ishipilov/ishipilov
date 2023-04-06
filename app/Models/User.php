@@ -40,4 +40,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+	
+	/**
+	 * Get the user's articles.
+	 */
+	public function articles()
+	{
+		return $this->hasMany(Article::class);
+	}
+	
+	/**
+	 * Get the user's notepad.
+	 */
+	public function notepad()
+	{
+		return $this->hasMany(Notepad::class);
+	}
 }
