@@ -31,9 +31,12 @@ Route::resource('notepad', NotepadController::class)->only(['index','store','upd
  * MISC
  */
 
-Route::middleware('auth')->get('/hash/{q?}', function (Illuminate\Http\Request $request) {
+Route::get('/hash/{q?}', function (Illuminate\Http\Request $request) {
 	$text = $request->q ?: Illuminate\Support\Str::random(8);
-	$hash = Illuminate\Support\Facades\Hash::make($text);
-	return view('hash')->with(['text' => $text, 'hash' => $hash]);
-	return ['text' => $text, 'hash' => $hash];
+	$hashes = collect([]);
+	for ($i=0; $i < 5; $i++) { 
+		$hash = Illuminate\Support\Facades\Hash::make($text);
+		$hashes->push($hash);
+	}
+	return view('hash')->with(['text' => $text, 'hashes' => $hashes]);
 })->name('hash');

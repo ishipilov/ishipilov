@@ -2093,6 +2093,9 @@ __webpack_require__.r(__webpack_exports__);
       if (_.isEmpty(this.notepad)) this.load();
       $('#notepadModal').modal('show');
     },
+    clear: function clear() {
+      this.input = "";
+    },
     select: function select(note) {
       if (this.selected && this.selected.id == note.id) {
         this.selected = null;
@@ -2256,7 +2259,7 @@ var render = function render() {
   })]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success btn-sm",
     attrs: {
-      type: "submit",
+      type: "button",
       disabled: _vm.waiting || !(_vm.selected || _vm.input)
     },
     on: {
@@ -2268,7 +2271,7 @@ var render = function render() {
   }, [_vm._v("Save")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary btn-sm",
     attrs: {
-      type: "submit",
+      type: "button",
       disabled: _vm.waiting || !_vm.input
     },
     on: {
@@ -2277,7 +2280,19 @@ var render = function render() {
         return _vm.store.apply(null, arguments);
       }
     }
-  }, [_vm._v("Save as new")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Save as new")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-sm",
+    attrs: {
+      type: "button",
+      disabled: _vm.waiting || !_vm.input
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.clear.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("Clear")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group list-group-flush rounded"
   }, [_vm._l(_vm.notepad, function (note) {
     return [_c("button", {

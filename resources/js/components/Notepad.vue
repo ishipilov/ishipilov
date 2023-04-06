@@ -20,8 +20,9 @@
 							<div class="form-group">
 								<textarea v-model="input" class="form-control" id="notepad-text" name="text" rows="6" :disabled="waiting"></textarea>
 							</div>
-							<button type="submit" class="btn btn-success btn-sm" :disabled="waiting || !(selected || input)" @click.prevent="save">Save</button>
-							<button type="submit" class="btn btn-primary btn-sm" :disabled="waiting || !input" @click.prevent="store">Save as new</button>
+							<button type="button" class="btn btn-success btn-sm" :disabled="waiting || !(selected || input)" @click.prevent="save">Save</button>
+							<button type="button" class="btn btn-primary btn-sm" :disabled="waiting || !input" @click.prevent="store">Save as new</button>
+							<button type="button" class="btn btn-secondary btn-sm" :disabled="waiting || !input" @click.prevent="clear">Clear</button>
 						</form>
 					</div>
 					<div class="list-group list-group-flush rounded">
@@ -58,6 +59,9 @@ export default {
 		onShow: function () {
 			if (_.isEmpty(this.notepad)) this.load()
 			$('#notepadModal').modal('show')
+		},
+		clear: function () {
+			this.input = ""
 		},
 		select: function (note) {
 			if (this.selected && this.selected.id == note.id) {
