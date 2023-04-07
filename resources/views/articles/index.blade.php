@@ -11,10 +11,10 @@
                     <li class="list-group-item">
                         <a class="text-decoration-none" href="{{ route('articles.show', $article) }}">
                             @if ($article->user == Auth::user())
+                                <span class="font-weight-bold mr-1">{{ $article->titleSub }}</span>
                                 @if (! $article->isPublished)
-                                    <i class="fa-solid fa-eye-slash mr-1"></i>
+                                <i class="fa-regular fa-fw fa-eye-slash"></i>
                                 @endif
-                                <span class="font-weight-bold">{{ $article->titleSub }}</span>
                             @else
                                 {{ $article->titleSub }}
                             @endif

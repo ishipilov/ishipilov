@@ -7,7 +7,14 @@
     <div class="card">
         <div class="card-body">
             @if ($article->title)
-                <h5 class="card-title">{{ $article->title }}</h5>
+                <h5 class="card-title">
+                    <span class="mr-1">
+                        {{ $article->title }}
+                    </span>
+                    @if (! $article->isPublished)
+                        <i class="fa-regular fa-fw fa-eye-slash text-muted"></i>
+                    @endif
+                </h5>
             @endif
             <article>
                 {!! $article->text !!}
@@ -28,12 +35,6 @@
                 @endcan
             </div>
         @endcanany
-        @if ($article->isPublished)
-            <div class="card-footer text-muted small">
-                <i class="fa-solid fa-eye mr-1"></i>
-                {{ $article->publishedDate }}
-            </div>
-        @endif
     </div>
 </div>
 @endsection
