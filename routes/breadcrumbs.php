@@ -22,6 +22,12 @@ Breadcrumbs::for('articles.index', function (BreadcrumbTrail $trail) {
     $trail->push('Articles', route('articles.index'));
 });
 
+// Home > Articles > User
+Breadcrumbs::for('articles.user', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('My articles', route('articles.user'));
+});
+
 // Home > Articles > Create
 Breadcrumbs::for('articles.create', function (BreadcrumbTrail $trail) {
     $trail->parent('articles.index');
@@ -30,7 +36,11 @@ Breadcrumbs::for('articles.create', function (BreadcrumbTrail $trail) {
 
 // Home > Articles > Show
 Breadcrumbs::for('articles.show', function (BreadcrumbTrail $trail, Article $article) {
-    $trail->parent('articles.index');
+    if ($article->isPublished) {
+        $trail->parent('articles.index');
+    } else {
+        $trail->parent('articles.user');
+    }
     $trail->push($article->titleSub, route('articles.show', $article));
 });
 
