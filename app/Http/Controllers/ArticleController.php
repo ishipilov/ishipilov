@@ -106,7 +106,7 @@ class ArticleController extends Controller
             $article->text = $attributes['text'];
             if (empty($attributes['publish'])) {
                 $article->published_at = null;
-            } else {
+            } elseif (empty($article->published_at)) {
                 $article->published_at = now();
             }
             $article->save();
