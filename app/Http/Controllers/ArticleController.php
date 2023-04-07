@@ -30,8 +30,9 @@ class ArticleController extends Controller
         return view('articles.index')->withArticles($articles);
     }
 
-    public function user_articles(Request $request)
+    public function index_user(Request $request)
     {
+        $this->authorize('viewAnyUser', Article::class);
         $articles = $request->user()->articles()->ordered()->get();
         return view('articles.index')->withArticles($articles);
     }

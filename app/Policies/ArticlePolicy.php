@@ -21,6 +21,11 @@ class ArticlePolicy
         return true;
     }
 
+    public function viewAnyUser(User $user)
+    {
+        return $user;
+    }
+
     /**
      * Determine whether the user can view the model.
      *
