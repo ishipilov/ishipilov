@@ -26,6 +26,7 @@ class UpdateArticle extends FormRequest
 		return [
 			'title' => 'Title',
 			'text' => 'Text',
+			'publish' => 'Publish',
 		];
 	}
 
@@ -39,6 +40,7 @@ class UpdateArticle extends FormRequest
         return [
 			'title' => 'nullable|string',
 			'text' => 'required|string',
+            'publish' => 'boolean',
         ];
     }
 }

@@ -30,7 +30,8 @@ class ArticlePolicy
      */
     public function view(?User $user, Article $article)
     {
-        return true;
+        return $article->isPublished
+        || $user == $article->user;
     }
 
     /**

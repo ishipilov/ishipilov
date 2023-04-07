@@ -26,7 +26,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all()->sortByDesc('id');
+        $articles = Article::published()->ordered()->get();
+        return view('articles.index')->withArticles($articles);
+    }
+
+    public function user_articles(Request $request)
+    {
+        $articles = $request->user()->articles()->ordered()->get();
         return view('articles.index')->withArticles($articles);
     }
 
@@ -97,6 +103,11 @@ class ArticleController extends Controller
         try {
             $article->title = $attributes['title'];
             $article->text = $attributes['text'];
+            if (empty($attributes['publish'])) {
+                $article->published_at = null;
+            } else {
+                $article->published_at = now();
+            }
             $article->save();
             return redirect()->route('articles.show', $article)->withStatus("Success.");
         } catch (\Exception $e) {

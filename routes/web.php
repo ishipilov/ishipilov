@@ -23,6 +23,9 @@ Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_V
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::prefix('articles')->name('articles.')->group(function () {
+	Route::get('/user', [ArticleController::class, 'user_articles'])->name('user_articles');
+});
 Route::resource('articles', ArticleController::class);
 
 Route::resource('notepad', NotepadController::class)->only(['index','store','update']);

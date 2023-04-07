@@ -21,6 +21,14 @@
 						<textarea class="form-control" id="article-text" name="text" rows="6">{{ old('text', $article->text) }}</textarea>
 					</div>
 				</div>
+				<div class="form-group row">
+					<div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="publish" name="publish" value="1" {{ old('publish', $article->isPublished) ? 'checked' : '' }}>
+              <label class="form-check-label" for="publish">{{ __('Publish') }}</label>
+            </div>
+					</div>
+				</div>
 
 				<!-- Buttons -->
 				<div class="form-group row mb-0">

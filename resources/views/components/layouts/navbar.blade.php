@@ -49,6 +49,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <h6 class="dropdown-header">{{ __('Articles') }}</h6>
                             <a class="dropdown-item" href="{{ route('articles.create') }}">{{ __('Create article') }}</a>
+                            <a class="dropdown-item" href="{{ route('articles.user_articles') }}">{{ __('My articles') }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"

@@ -28,6 +28,12 @@
                 @endcan
             </div>
         @endcanany
+        @if ($article->isPublished)
+            <div class="card-footer text-muted small">
+                <i class="fa-solid fa-eye mr-1"></i>
+                {{ $article->publishedDate }}
+            </div>
+        @endif
     </div>
 </div>
 @endsection
