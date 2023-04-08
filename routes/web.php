@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\NotepadController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::prefix('articles')->name('articles.')->group(function () {
 	Route::get('/user', [ArticleController::class, 'index_user'])->name('user');
 });
 Route::resource('articles', ArticleController::class);
+
+Route::resource('invitations', InvitationController::class);
 
 Route::resource('notepad', NotepadController::class)->only(['index','store','update']);
 
