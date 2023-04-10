@@ -10,7 +10,7 @@
           <span class="mr-1">{{ $user->name }}</span>
           <a href="mailto:{{ $user->email }}" class="text-decoration-none mr-1">{{ $user->email }}</a>
         </p>
-        <a class="btn btn-primary btn-sm" href="{{ route('admin.users.login_as', $user) }}" role="button">{{ __('Login as') }}</a>
+        <a class="btn btn-outline-primary btn-sm" href="{{ route('admin.users.login_as', $user) }}" role="button">{{ __('Login as') }}</a>
       </li>
     @endforeach
   </ul>
