@@ -132,6 +132,12 @@ class InvitationController extends Controller
      */
     public function destroy(Invitation $invitation)
     {
-        //
+        try {
+            $invitation->delete();
+            return redirect()->route('invitations.index')->withStatus("Success.");
+        } catch (\Exception $e) {
+            $errors = $e->getMessage();
+            return back()->withErrors($errors);
+        }
     }
 }

@@ -78,7 +78,8 @@ class InvitationPolicy
      */
     public function delete(User $user, Invitation $invitation)
     {
-        //
+        return $user == $invitation->user
+        && $invitation->target_user == null;
     }
 
     /**

@@ -41,6 +41,15 @@
                                 <dt class="col-sm-2">{{ __('Created at') }}</dt>
                                 <dd class="col-sm-10">{{ DateHelper::isoFormat($invitation->target_user->created_at) }}</dd>
                             </dl>
+                        @else
+                            <div>
+                                <button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="event.preventDefault();
+                                if (confirm('Delete invitation?')) { document.getElementById('{{ 'invitation-delete-' . $invitation->id }}').submit(); }">{{ __('Delete') }}</button>
+                                <form id="{{ 'invitation-delete-' . $invitation->id }}" action="{{ route('invitations.destroy', $invitation) }}" method="POST" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </div>
                         @endif
                     </li>
                 @endcan
