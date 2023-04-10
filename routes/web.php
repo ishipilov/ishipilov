@@ -33,7 +33,7 @@ Route::prefix('invitations')->name('invitations.')->group(function () {
 	Route::post('/register/{invitation}/{hash}', [InvitationController::class, 'register'])->name('register');
 	Route::get('/{invitation}/{hash}', [InvitationController::class, 'show'])->name('show');
 });
-Route::resource('invitations', InvitationController::class)->only(['index', 'create', 'store']);
+Route::resource('invitations', InvitationController::class)->only(['index', 'create', 'store', 'destroy']);
 
 Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
 

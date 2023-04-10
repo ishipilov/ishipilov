@@ -49,3 +49,15 @@ Breadcrumbs::for('articles.edit', function (BreadcrumbTrail $trail, Article $art
     $trail->parent('articles.show', $article);
     $trail->push('Edit', route('articles.edit', $article));
 });
+
+// Home > Invitations
+Breadcrumbs::for('invitations.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('My invitations', route('invitations.index'));
+});
+
+// Home > Invitations > Create
+Breadcrumbs::for('invitations.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('invitations.index');
+    $trail->push('Create', route('invitations.create'));
+});

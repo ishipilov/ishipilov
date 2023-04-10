@@ -48,7 +48,7 @@ class InvitationPolicy
      */
     public function create(User $user)
     {
-        return $user;
+        return $user->id == 1;
     }
 
     public function register(?User $user, Invitation $invitation, String $hash)
@@ -78,7 +78,8 @@ class InvitationPolicy
      */
     public function delete(User $user, Invitation $invitation)
     {
-        //
+        return $user == $invitation->user
+        && $invitation->target_user == null;
     }
 
     /**

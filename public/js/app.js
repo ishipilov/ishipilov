@@ -2260,11 +2260,12 @@ var render = function render() {
         _vm.input = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _vm.selected && !_vm.input ? _c("button", {
-    staticClass: "btn btn-danger btn-sm",
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-sm",
+    "class": _vm.selected && !_vm.input ? "btn-danger" : "btn-success",
     attrs: {
       type: "button",
-      disabled: _vm.waiting
+      disabled: _vm.waiting || !_vm.input && !_vm.selected || _vm.selected && _vm.selected.text == _vm.input
     },
     on: {
       click: function click($event) {
@@ -2272,23 +2273,11 @@ var render = function render() {
         return _vm.save.apply(null, arguments);
       }
     }
-  }, [_vm._v("Delete")]) : _c("button", {
-    staticClass: "btn btn-success btn-sm",
-    attrs: {
-      type: "button",
-      disabled: _vm.waiting || !_vm.input || _vm.selected && _vm.selected.text == _vm.input
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.save.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("Save")]), _vm._v(" "), _vm.selected && _vm.input && _vm.selected.text != _vm.input ? _c("button", {
+  }, [_vm.selected && !_vm.input ? [_vm._v("Delete")] : [_vm._v("Save")]], 2), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary btn-sm",
     attrs: {
       type: "button",
-      disabled: _vm.waiting
+      disabled: _vm.waiting || !_vm.input
     },
     on: {
       click: function click($event) {
@@ -2296,7 +2285,7 @@ var render = function render() {
         return _vm.store.apply(null, arguments);
       }
     }
-  }, [_vm._v("Save as new")]) : _vm._e(), _vm._v(" "), _vm.input ? _c("button", {
+  }, [_vm._v("Save as new")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-secondary btn-sm",
     attrs: {
       type: "button",
@@ -2308,7 +2297,7 @@ var render = function render() {
         return _vm.clear.apply(null, arguments);
       }
     }
-  }, [_vm._v("Clear")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Clear")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group list-group-flush rounded"
   }, [_vm._l(_vm.orderedByDesc, function (note) {
     return [_c("button", {

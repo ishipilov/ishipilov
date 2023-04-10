@@ -20,10 +20,12 @@
 							<div class="form-group">
 								<textarea v-model="input" class="form-control" id="notepad-text" name="text" rows="6" :disabled="waiting"></textarea>
 							</div>
-							<button v-if="selected && !input" type="button" class="btn btn-danger btn-sm" :disabled="waiting" @click.prevent="save">Delete</button>
-							<button v-else type="button" class="btn btn-success btn-sm" :disabled="waiting || !input || (selected && selected.text == input)" @click.prevent="save">Save</button>
-							<button v-if="selected && input && selected.text != input" type="button" class="btn btn-primary btn-sm" :disabled="waiting" @click.prevent="store">Save as new</button>
-							<button v-if="input" type="button" class="btn btn-secondary btn-sm" :disabled="waiting" @click.prevent="clear">Clear</button>
+							<button type="button" class="btn btn-sm" :class="selected && ! input ? 'btn-danger' : 'btn-success'" :disabled="waiting || (! input && ! selected) || selected && selected.text == input" @click.prevent="save">
+								<template v-if="selected && ! input">Delete</template>
+								<template v-else>Save</template>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm" :disabled="waiting || ! input" @click.prevent="store">Save as new</button>
+							<button type="button" class="btn btn-secondary btn-sm" :disabled="waiting" @click.prevent="clear">Clear</button>
 						</form>
 					</div>
 					<div class="list-group list-group-flush rounded">
