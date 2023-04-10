@@ -20,7 +20,7 @@
 							<div class="form-group">
 								<textarea v-model="input" class="form-control" id="notepad-text" name="text" rows="6" :disabled="waiting"></textarea>
 							</div>
-							<button type="button" class="btn btn-sm" :class="selected && ! input ? 'btn-danger' : 'btn-success'" :disabled="waiting || (! input && ! selected) || input == selected.text" @click.prevent="save">
+							<button type="button" class="btn btn-sm" :class="selected && ! input ? 'btn-danger' : 'btn-success'" :disabled="waiting || (! input && ! selected) || selected && selected.text == input" @click.prevent="save">
 								<template v-if="selected && ! input">Delete</template>
 								<template v-else>Save</template>
 							</button>

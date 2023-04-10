@@ -2265,7 +2265,7 @@ var render = function render() {
     "class": _vm.selected && !_vm.input ? "btn-danger" : "btn-success",
     attrs: {
       type: "button",
-      disabled: _vm.waiting || !_vm.input && !_vm.selected || _vm.input == _vm.selected.text
+      disabled: _vm.waiting || !_vm.input && !_vm.selected || _vm.selected && _vm.selected.text == _vm.input
     },
     on: {
       click: function click($event) {
