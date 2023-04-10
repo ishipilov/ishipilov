@@ -38,6 +38,18 @@ Route::resource('invitations', InvitationController::class)->only(['index', 'cre
 Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
 
 /**
+ * ADMIN
+ */
+
+Route::prefix('admin')->name('admin.')->group(function () {
+	Route::prefix('users')->name('users.')->group(function () {
+		Route::get('login_as/{user}', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
+	});
+	Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
+});
+
+
+/**
  * MISC
  */
 
