@@ -30,11 +30,12 @@ Route::prefix('articles')->name('articles.')->group(function () {
 Route::resource('articles', ArticleController::class);
 
 Route::prefix('invitations')->name('invitations.')->group(function () {
+	Route::post('/register/{invitation}/{hash}', [InvitationController::class, 'register'])->name('register');
 	Route::get('/{invitation}/{hash}', [InvitationController::class, 'show'])->name('show');
 });
-Route::resource('invitations', InvitationController::class)->except(['show']);
+Route::resource('invitations', InvitationController::class)->only(['index', 'create', 'store']);
 
-Route::resource('notepad', NotepadController::class)->only(['index','store','update']);
+Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
 
 /**
  * MISC

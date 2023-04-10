@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvitation;
 use App\Http\Requests\UpdateInvitation;
+use App\Http\Requests\RegisterInvitation;
 use App\Models\Invitation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class InvitationController extends Controller
@@ -57,8 +60,7 @@ class InvitationController extends Controller
             $invitation->email = $attributes['email'];
             $invitation->text = $attributes['text'];
 
-            $rand = Str::random(8);
-            $hash = Hash::make($rand);
+            $hash = Str::random(16);
             $invitation->hash = $hash;
 
             $invitation->user_id = $request->user()->id;
@@ -70,15 +72,33 @@ class InvitationController extends Controller
         }
     }
 
+    public function register(RegisterInvitation $request, Invitation $invitation, String $hash)
+    {
+        $this->authorize('register', [$invitation, $hash]);
+        $attributes = $request->validated();
+        $user = User::create([
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+            'password' => Hash::make($attributes['password']),
+        ]);
+        Auth::loginUsingId($user->id);
+        $invitation->target_user_id = $user->id;
+        $invitation->save();
+        return redirect()->route('home')->withStatus("Welcome.");
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Invitation  $invitation
      * @return \Illuminate\Http\Response
      */
-    public function show(Invitation $invitation)
+    public function show(Invitation $invitation, String $hash)
     {
-        return view('invitations.show')->withInvitation($invitation);
+        $this->authorize('viewHash', [$invitation, $hash]);
+        return view('invitations.show')
+        ->withInvitation($invitation)
+        ->withHash($hash);
     }
 
     /**
