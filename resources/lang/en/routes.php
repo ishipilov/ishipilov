@@ -12,6 +12,10 @@ return [
     ],
     'hash' => 'Hash maker',
     'home' => 'Home',
+    'invitations' => [
+      'index' => 'My Invitations',
+      'create' => 'Create invitation',
+    ],
     'login' => 'Login',
     'password' => [
       'request' => 'Password reset',

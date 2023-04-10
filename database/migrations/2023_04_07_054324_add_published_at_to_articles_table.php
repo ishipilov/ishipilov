@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            
             $table->timestamp('published_at')
             ->after('deleted_at')
             ->nullable();
