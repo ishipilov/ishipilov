@@ -18,7 +18,7 @@ class InvitationPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user;
     }
 
     /**
@@ -30,7 +30,7 @@ class InvitationPolicy
      */
     public function view(User $user, Invitation $invitation)
     {
-        //
+        return $user == $invitation->user;
     }
 
     /**

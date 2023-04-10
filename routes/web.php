@@ -29,7 +29,10 @@ Route::prefix('articles')->name('articles.')->group(function () {
 });
 Route::resource('articles', ArticleController::class);
 
-Route::resource('invitations', InvitationController::class);
+Route::prefix('invitations')->name('invitations.')->group(function () {
+	Route::get('/{invitation}/{hash}', [InvitationController::class, 'show'])->name('show');
+});
+Route::resource('invitations', InvitationController::class)->except(['show']);
 
 Route::resource('notepad', NotepadController::class)->only(['index','store','update']);
 

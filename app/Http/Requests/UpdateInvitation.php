@@ -39,7 +39,7 @@ class UpdateInvitation extends FormRequest
     {
         return [
 			'name' => 'nullable|string',
-			'email' => 'nullable|string',
+			'email' => 'required|string',
 			'text' => 'nullable|string',
         ];
     }

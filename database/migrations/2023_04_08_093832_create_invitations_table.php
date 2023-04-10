@@ -20,10 +20,12 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->string('name')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->text('text')->nullable();
             $table->string('hash');
-            $table->foreign('created_user_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('target_user_id')->nullable();
+            $table->foreign('target_user_id')->references('id')->on('users');
 
             $table->json('options')->nullable();
 

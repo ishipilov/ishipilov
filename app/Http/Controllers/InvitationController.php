@@ -28,7 +28,8 @@ class InvitationController extends Controller
      */
     public function index()
     {
-        //
+        $invitations = Invitation::all();
+        return view('invitations.index')->withInvitations($invitations);
     }
 
     /**
@@ -62,7 +63,7 @@ class InvitationController extends Controller
 
             $invitation->user_id = $request->user()->id;
             $invitation->save();
-            return back()->withStatus("Success.");
+            return redirect()->route('invitations.index')->withStatus("Success.");
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return back()->withErrors($errors);
@@ -77,7 +78,7 @@ class InvitationController extends Controller
      */
     public function show(Invitation $invitation)
     {
-        //
+        return view('invitations.show')->withInvitation($invitation);
     }
 
     /**

@@ -10,13 +10,22 @@ class Invitation extends Model
 {
     //use HasFactory;
 	use SoftDeletes;
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'hash',
+    ];
     
     /**
      * Get the user associated with the invitation.
      */
-    public function created_user()
+    public function target_user()
     {
-        return $this->hasOne(User::class, 'created_user_id');
+        return $this->hasOne(User::class, 'id', 'target_user_id');
     }
 
 	/**
