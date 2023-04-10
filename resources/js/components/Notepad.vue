@@ -24,8 +24,8 @@
 								<template v-if="selected && ! input">Delete</template>
 								<template v-else>Save</template>
 							</button>
-							<button type="button" class="btn btn-primary btn-sm" :disabled="waiting || ! input" @click.prevent="store">Save as new</button>
-							<button type="button" class="btn btn-secondary btn-sm" :disabled="waiting" @click.prevent="clear">Clear</button>
+							<button type="button" class="btn btn-primary btn-sm" :disabled="waiting || ! input || ! selected" @click.prevent="store">Save as new</button>
+							<button type="button" class="btn btn-secondary btn-sm" :disabled="waiting || ! input" @click.prevent="clear">Clear</button>
 						</form>
 					</div>
 					<div class="list-group list-group-flush rounded">
@@ -50,7 +50,7 @@ export default {
 		return {
 			id: null,
 			notepad: [],
-			selected: null,
+			selected_id: null,
 			input: "",
 			waiting: false,
 			error: null
@@ -59,6 +59,9 @@ export default {
 	computed: {
 		orderedByDesc: function () {
 			return _.orderBy(this.notepad, ['id'], ['desc'])
+		},
+		selected: function () {
+			return _.find(this.notepad, { 'id': this.selected_id });
 		}
 	},
   created: function () { this.id = this.$options.name + this._uid },
@@ -73,9 +76,9 @@ export default {
 		},
 		select: function (note) {
 			if (this.selected && this.selected.id == note.id) {
-				this.selected = null
+				this.selected_id = null
 			} else {
-				this.selected = note
+				this.selected_id = note.id
 				this.input = note.text
 			}
 		},
@@ -120,7 +123,7 @@ export default {
 			axios(requestData)
 			.then((response) => {
 				this.waiting = false
-				if (response.status == 201) this.selected = response.data
+				if (response.status == 201) this.selected_id = response.data.id
 				this.load()
 			}).catch((error) => {
 				this.error = error.response
