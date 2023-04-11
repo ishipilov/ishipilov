@@ -17,12 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('welcome');
-Route::redirect('/', '/home');
-
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('articles')->name('articles.')->group(function () {
 	Route::get('/user', [ArticleController::class, 'index_user'])->name('user');
