@@ -47,9 +47,12 @@
                             <h6 class="dropdown-header">{{ __('Articles') }}</h6>
                             <a class="dropdown-item" href="{{ route('articles.create') }}">{{ __('Create article') }}</a>
                             <a class="dropdown-item" href="{{ route('articles.user') }}">{{ __('My articles') }}</a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="dropdown-header">{{ __('Invitations') }}</h6>
-                            <a class="dropdown-item" href="{{ route('invitations.index') }}">{{ __('My invitations') }}</a>
+                            @can('viewAny', \App\Models\Invitation::class)
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">{{ __('Invitations') }}</h6>
+                                <a class="dropdown-item" href="{{ route('invitations.create') }}">{{ __('Create invitation') }}</a>
+                                <a class="dropdown-item" href="{{ route('invitations.index') }}">{{ __('My invitations') }}</a>
+                            @endcan
                             <div class="dropdown-divider"></div>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"

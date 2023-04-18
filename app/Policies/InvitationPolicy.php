@@ -18,6 +18,7 @@ class InvitationPolicy
      */
     public function viewAny(User $user)
     {
+        return $user->id == 1;
         return $user;
     }
 
@@ -30,6 +31,7 @@ class InvitationPolicy
      */
     public function view(?User $user, Invitation $invitation)
     {
+        return $user->id == 1;
         return $user == $invitation->user
         || $invitation->target_user == null;
     }
@@ -49,6 +51,7 @@ class InvitationPolicy
     public function create(User $user)
     {
         return $user->id == 1;
+        return $user;
     }
 
     public function register(?User $user, Invitation $invitation, String $hash)
@@ -78,6 +81,7 @@ class InvitationPolicy
      */
     public function delete(User $user, Invitation $invitation)
     {
+        return $user->id == 1;
         return $user == $invitation->user
         && $invitation->target_user == null;
     }
