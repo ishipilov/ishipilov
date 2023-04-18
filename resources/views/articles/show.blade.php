@@ -16,9 +16,7 @@
                     @endif
                 </h5>
             @endif
-            <article>
-                {!! $article->text !!}
-            </article>
+            <article>{!! $article->text !!}</article>
             <div>
                 <hr>
                 <small class="text-muted">
@@ -38,3 +36,11 @@
     </div>
 </div>
 @endsection
+
+@push('head')
+<style>
+    article iframe.note-video-clip {
+        max-width: 100%;
+    }
+</style>
+@endpush
