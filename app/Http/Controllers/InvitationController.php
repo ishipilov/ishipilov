@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInvitation;
 use App\Http\Requests\UpdateInvitation;
 use App\Http\Requests\RegisterInvitation;
+use App\Mail\RegisterInvitation as MailRegisterInvitation;
 use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class InvitationController extends Controller
 {
@@ -65,11 +67,23 @@ class InvitationController extends Controller
 
             $invitation->user_id = $request->user()->id;
             $invitation->save();
+
+            Mail::to($invitation->email)->send(new MailRegisterInvitation($invitation));
+
             return redirect()->route('invitations.index')->withStatus("Success.");
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return back()->withErrors($errors);
         }
+    }
+
+    public function resend(Request $request, Invitation $invitation)
+    {
+        $this->authorize('resend', $invitation);
+        //return (new MailRegisterInvitation($invitation))->render();
+        Mail::to($invitation->email)->send(new MailRegisterInvitation($invitation));
+
+        return redirect()->route('invitations.index')->withStatus("Success.");
     }
 
     public function register(RegisterInvitation $request, Invitation $invitation, String $hash)

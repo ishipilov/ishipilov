@@ -54,6 +54,12 @@ class InvitationPolicy
         return $user;
     }
 
+    public function resend(User $user, Invitation $invitation)
+    {
+        return $user == $invitation->user
+        || $invitation->target_user == null;
+    }
+
     public function register(?User $user, Invitation $invitation, String $hash)
     {
         return ($invitation->hash == $hash

@@ -1,6 +1,6 @@
 @extends('layouts.templates.default')
 
-@section('page-title', $invitation->id)
+@section('page-title', 'Register invitation')
 
 @section('content')
 

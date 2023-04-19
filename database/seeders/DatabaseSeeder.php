@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         if (App::environment('local')) {
-            \App\Models\User::factory(10)->create();
+            \App\Models\User::factory(5)->create();
             \App\Models\Article::factory(5)->create();
         }
     }

@@ -2,9 +2,6 @@
 
 @section('content')
 <div class="container">
-    <nav class="nav mb-2">
-    <a class="nav-link" href="{{ route('invitations.create') }}">{{ __('Create') }}</a>
-    </nav>
     @if ($invitations->isEmpty())
         {{ __('Empty') }}
     @else
@@ -42,13 +39,18 @@
                                 <dd class="col-sm-10">{{ DateHelper::isoFormat($invitation->target_user->created_at) }}</dd>
                             </dl>
                         @else
-                            <div>
-                                <button type="button" class="btn btn-outline-danger btn-sm mt-2" onclick="event.preventDefault();
-                                if (confirm('Delete invitation?')) { document.getElementById('{{ 'invitation-delete-' . $invitation->id }}').submit(); }">{{ __('Delete') }}</button>
-                                <form id="{{ 'invitation-delete-' . $invitation->id }}" action="{{ route('invitations.destroy', $invitation) }}" method="POST" class="d-none">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
+                            <div class="mt-2">
+                                @can ('resend', $invitation)
+                                    <a class="btn btn-warning btn-sm" href="{{ route('invitations.resend', $invitation) }}" role="button">{{ __('Resend') }}</a>
+                                @endcan
+                                @can ('delete', $invitation)
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="event.preventDefault();
+                                    if (confirm('Delete invitation?')) { document.getElementById('{{ 'invitation-delete-' . $invitation->id }}').submit(); }">{{ __('Delete') }}</button>
+                                    <form id="{{ 'invitation-delete-' . $invitation->id }}" action="{{ route('invitations.destroy', $invitation) }}" method="POST" class="d-none">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endcan
                             </div>
                         @endif
                     </li>
