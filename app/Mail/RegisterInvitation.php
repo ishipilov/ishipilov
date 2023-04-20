@@ -33,7 +33,6 @@ class RegisterInvitation extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
             subject: 'Register Invitation to ' . env('APP_NAME'),
         );
     }
