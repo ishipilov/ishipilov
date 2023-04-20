@@ -29,11 +29,9 @@ class InvitationPolicy
      * @param  \App\Models\Invitation  $invitation
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, Invitation $invitation)
+    public function view(User $user, Invitation $invitation)
     {
-        return $user->id == 1;
-        return $user == $invitation->user
-        || $invitation->target_user == null;
+        return $user == $invitation->user;
     }
 
     public function viewHash(?User $user, Invitation $invitation, String $hash)
@@ -56,8 +54,8 @@ class InvitationPolicy
 
     public function resend(User $user, Invitation $invitation)
     {
-        return $user == $invitation->user
-        || $invitation->target_user == null;
+        return ($user == $invitation->user
+        && $invitation->target_user == null);
     }
 
     public function register(?User $user, Invitation $invitation, String $hash)
@@ -87,7 +85,6 @@ class InvitationPolicy
      */
     public function delete(User $user, Invitation $invitation)
     {
-        return $user->id == 1;
         return $user == $invitation->user
         && $invitation->target_user == null;
     }
