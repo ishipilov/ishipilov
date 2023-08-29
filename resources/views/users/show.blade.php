@@ -10,7 +10,7 @@
             <h6 class="card-subtitle text-muted">{{ __('Articles') }}</h6>
         </div>
         @if ($articles->isEmpty())
-            {{ __('Empty') }}
+            <div class="m-1 p-3">{{ __('Empty') }}</div>
         @else
             <ul class="list-group list-group-flush">
                 @foreach ($articles as $article)
