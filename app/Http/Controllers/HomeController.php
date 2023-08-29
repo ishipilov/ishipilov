@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,14 +24,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        if ($user) {
-            $articles = $user->articles()->published()->ordered()->get();
-            return view('users.show')
-            ->withArticles($articles)
-            ->withUser($user);
-        } else {
-            return view('home');
-        }
+        $articles = Article::published()->ordered()->get();
+        return view('home')->withArticles($articles);
     }
 }

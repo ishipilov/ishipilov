@@ -2,8 +2,13 @@
 
 @section('content')
 <div class="container">
+    <nav class="nav">
+        @can('create', \App\Models\Invitation::class)
+            <a class="nav-link" href="{{ route('invitations.create') }}">{{ __('Create') }}</a>
+        @endcan
+    </nav>
     @if ($invitations->isEmpty())
-        {{ __('Empty') }}
+        <div class="p-3">{{ __('Empty') }}</div>
     @else
         <ul class="list-group">
             @foreach ($invitations as $invitation)

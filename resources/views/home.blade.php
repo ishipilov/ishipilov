@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
 
-    
+    @component('articles.partials.list', [ 'articles' => $articles ])
+    @endcomponent
 
 </div>
 @endsection

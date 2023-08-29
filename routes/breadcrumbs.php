@@ -24,13 +24,13 @@ Breadcrumbs::for('articles.index', function (BreadcrumbTrail $trail) {
 
 // Home > Articles > User
 Breadcrumbs::for('articles.user', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
+    $trail->parent('articles.index');
     $trail->push('My articles', route('articles.user'));
 });
 
-// Home > Articles > Create
+// Home > Articles > User > Create
 Breadcrumbs::for('articles.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('articles.index');
+    $trail->parent('articles.user');
     $trail->push('Create', route('articles.create'));
 });
 
