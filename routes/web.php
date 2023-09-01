@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('test', [HomeController::class, 'test'])->name('test');
 
 Route::prefix('articles')->name('articles.')->group(function () {
 	Route::get('/user', [ArticleController::class, 'index_user'])->name('user');
