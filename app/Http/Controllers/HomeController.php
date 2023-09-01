@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Arr;
+use App\Models\Loto;
 
 class HomeController extends Controller
 {
@@ -37,24 +37,16 @@ class HomeController extends Controller
      */
     public function test(Request $request)
     {
-        function loto(Array $array, Int $count, Array $result)
-        {
-            shuffle($array);
-            $rand = array_rand($array);
-            $push = $array[$rand];
-            array_push($result, $push);
-            unset($array[$rand]);
-            if (count($result) == $count) {
-                return [$result, $array];
-            } else {
-                return loto($array, $count, $result);
-            }
-        }
-
         $range = range(1, 36);
+        $result = Loto::generate($range, 6, []);
+        
+        $loto = new Loto;
+        $loto->result = $result;
+        $loto->user()->associate($request->user());
+        $loto->save();
 
-        return loto($range, 6, []);
+        return Loto::all();
 
-        return view('test');
+        //return view('test');
     }
 }
