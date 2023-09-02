@@ -45,8 +45,8 @@ class HomeController extends Controller
         $loto->user()->associate($request->user());
         $loto->save();
 
-        return Loto::all();
+        $lotos = Loto::all();
 
-        //return view('test');
+        return view('test')->withLotos($lotos);
     }
 }
