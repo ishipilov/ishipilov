@@ -35,7 +35,7 @@
                         <vue-notepad url="{{ route('notepad.index') }}">
                             <template v-slot:notepad_slot="{ onShow }">
                                     <a class="nav-link" href="#" @click.prevent="onShow">
-                                        <i class="fa-regular fa-note-sticky fa-fw pr-1 pr-md-0"></i>
+                                        <i class="fa-regular fa-note-sticky fa-fw pr-1 pr-md-0" title="{{ __('Notepad') }}"></i>
                                         <span class="d-md-none">{{ __('Notepad') }}</span>
                                     </a>
                             </template>
@@ -43,7 +43,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fa-regular fa-user fa-fw pr-1 pr-md-0"></i>
+                            <i class="fa-regular fa-user fa-fw pr-1 pr-md-0" title="{{ Auth::user()->name }}"></i>
                             <span class="d-md-none">{{ Auth::user()->name }}</span>
                         </a>
 
