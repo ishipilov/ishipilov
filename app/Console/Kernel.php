@@ -25,6 +25,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+
+            $range = range(1, 36);
+            $result = \App\Models\Loto::generate($range, 6, []);
+            
+            $loto = new \App\Models\Loto;
+            $loto->result = $result;
+            $loto->user()->associate(\App\Models\User::find(1));
+            $loto->save();
+
+        })->everyMinute();
     }
 
     /**
