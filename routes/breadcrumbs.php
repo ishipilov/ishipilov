@@ -16,6 +16,18 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('home'));
 });
 
+// Home > Guestbook
+Breadcrumbs::for('guestbook.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Guestbook', route('guestbook.index'));
+});
+
+// Home > Guestbook > Create
+Breadcrumbs::for('guestbook.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('guestbook.index');
+    $trail->push('Create', route('guestbook.create'));
+});
+
 // Home > Articles
 Breadcrumbs::for('articles.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

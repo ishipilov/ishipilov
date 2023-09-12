@@ -3,8 +3,7 @@
 @section('content')
 <div class="container">
 
-    @component('articles.partials.list', [ 'articles' => $articles ])
-    @endcomponent
+    @include('guestbook.subviews.form-create')
 
 </div>
 @endsection

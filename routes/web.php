@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\GuestbookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\NotepadController;
@@ -20,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('test', [HomeController::class, 'test'])->name('test');
+
+Route::resource('guestbook', GuestbookController::class);
 
 Route::prefix('articles')->name('articles.')->group(function () {
 	Route::get('/user', [ArticleController::class, 'index_user'])->name('user');
@@ -35,6 +37,7 @@ Route::prefix('invitations')->name('invitations.')->group(function () {
 Route::resource('invitations', InvitationController::class)->only(['index', 'create', 'store', 'destroy']);
 
 Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
+
 
 /**
  * ADMIN
@@ -51,6 +54,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
 /**
  * MISC
  */
+
+Route::get('loto', function (Illuminate\Http\Request $request) {
+	$range = range(1, 36);
+	$result = \App\Models\Loto::generate($range, 6, []);
+	
+	$loto = new \App\Models\Loto;
+	$loto->result = $result;
+	$loto->user()->associate($request->user());
+	$loto->save();
+
+	return \App\Models\Loto::all();
+})->name('loto');
+
+Route::get('test', function (Illuminate\Http\Request $request) {
+	return abort(404);
+	return view('test');
+})->name('test');
 
 Route::get('/hash/{q?}', function (Illuminate\Http\Request $request) {
 	$text = $request->q ?: Illuminate\Support\Str::random(8);
