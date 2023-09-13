@@ -7,7 +7,8 @@
             <a class="nav-link" href="{{ route('articles.create') }}">{{ __('Create') }}</a>
         @endcan
     </nav>
-    @component('articles.partials.list', [ 'articles' => $articles ])
-    @endcomponent
+
+    @include('articles.subviews.list', [ 'articles' => $articles ])
+    
 </div>
 @endsection

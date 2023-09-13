@@ -3,18 +3,7 @@
 @section('content')
 <div class="container">
 
-    <div class="list-group">
-        @foreach($lotos as $loto)
-            <a href="#" class="list-group-item list-group-item-action">
-                {{ $loto->id }}
-                <div class="d-flex flex-row">
-                    @foreach($loto->result as $result)
-                        <div class="lead text-center m-1 p-1 bg-light" style="width: 2rem;">{{ $result }}</div>
-                    @endforeach
-                </div>
-            </a>
-        @endforeach
-    </div>
+    <div class="lead">//test</div>
 
 </div>
 @endsection

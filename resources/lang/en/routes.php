@@ -10,6 +10,10 @@ return [
       'show' => 'Article',
       'edit' => 'Edit article',
     ],
+    'guestbook' => [
+      'index' => 'Guestbook',
+      'create' => 'Create',
+    ],
     'hash' => 'Hash maker',
     'home' => 'Home',
     'invitations' => [
@@ -23,5 +27,6 @@ return [
       'reset' => 'Password reset',
     ],
     'register' => 'Register',
+    'test' => 'Test page',
   ]
 ];
