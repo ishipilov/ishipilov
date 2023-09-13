@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\NotepadController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,10 @@ Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_V
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::resource('guestbook', GuestbookController::class);
+Route::prefix('guestbook')->name('guestbook.')->group(function () {
+	Route::post('/', [GuestbookController::class, 'store'])->name('store')->middleware(ProtectAgainstSpam::class);
+});
+Route::resource('guestbook', GuestbookController::class)->except(['store']);
 
 Route::prefix('articles')->name('articles.')->group(function () {
 	Route::get('/user', [ArticleController::class, 'index_user'])->name('user');

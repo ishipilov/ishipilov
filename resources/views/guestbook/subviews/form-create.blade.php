@@ -2,6 +2,7 @@
 	<div class="card-body">
 		<form method="POST" action="{{ route('guestbook.store') }}" enctype="multipart/form-data">
 			@csrf
+			@honeypot
 
 			<!-- Guestbook -->
 			<div class="form-group row">
