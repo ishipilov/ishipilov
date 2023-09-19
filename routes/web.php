@@ -5,6 +5,7 @@ use App\Http\Controllers\GuestbookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\NotepadController;
+use App\Http\Controllers\ShoppingListController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
@@ -42,6 +43,8 @@ Route::resource('invitations', InvitationController::class)->only(['index', 'cre
 
 Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
 
+Route::resource('shoppinglist', ShoppingListController::class)->only(['index', 'store', 'update']);
+
 
 /**
  * ADMIN
@@ -72,7 +75,6 @@ Route::get('loto', function (Illuminate\Http\Request $request) {
 })->name('loto');
 
 Route::get('test', function (Illuminate\Http\Request $request) {
-	return abort(404);
 	return view('test');
 })->name('test');
 

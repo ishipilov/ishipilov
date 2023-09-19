@@ -56,4 +56,12 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Notepad::class);
 	}
+	
+	/**
+	 * Get the user's sopping list.
+	 */
+	public function shopping_list()
+	{
+		return $this->hasMany(ShoppingList::class);
+	}
 }
