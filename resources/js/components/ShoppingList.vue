@@ -2,13 +2,9 @@
 	<div :id="id">
 
 		<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-				The current link item
-			</a>
-			<a href="#" class="list-group-item list-group-item-action">A second link item</a>
-			<a href="#" class="list-group-item list-group-item-action">A third link item</a>
-			<a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-			<a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+			<template v-for="item in indata" v-key="item.id">
+				<a href="#" class="list-group-item list-group-item-action" :class="{ active: selected && selected == item }" @click.prevent="selected = item">{{ item.text }}</a>
+			</template>
 		</div>
 
   </div>
@@ -25,6 +21,7 @@ export default {
 		return {
 			id: null,
 			indata: [],
+			selected: null,
 			waiting: false,
 			error: null
 		}
@@ -43,7 +40,7 @@ export default {
 			}
 			axios(requestData)
 			.then((response) => {
-				this.indata = response.data.items
+				this.indata = response.data.shopping_list
 				this.waiting = false
 			}).catch((error) => {
 				this.error = error.response

@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
             \App\Models\User::factory(5)->create();
             \App\Models\Article::factory(5)->create();
         }
+        $this->call(ShoppingListSeeder::class);
     }
 }
