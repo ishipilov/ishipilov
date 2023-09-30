@@ -53,11 +53,11 @@ class ShoppingListController extends Controller
         $attributes = $request->validated();
         try {
             $user = $request->user();
-            $shopping_list = new ShoppingList;
-            $shopping_list->text = $attributes['text'];
-            $shopping_list->user()->associate($user);
-            $shopping_list->save();
-            return redirect()->route('shoppinglist.index', $article)->withStatus("Success.");
+            $shoppingList = new ShoppingList;
+            $shoppingList->text = $attributes['text'];
+            $shoppingList->user()->associate($user);
+            $shoppingList->save();
+            return redirect()->route('shoppinglist.index', $shoppingList)->withStatus("Success.");
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return back()->withErrors($errors);
@@ -107,5 +107,25 @@ class ShoppingListController extends Controller
     public function destroy(ShoppingList $shoppingList)
     {
         //
+    }
+
+    /**
+     * Toggle active state.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ShoppingList  $shoppingList
+     * @return \Illuminate\Http\Response
+     */
+    public function toggle(Request $request, ShoppingList $shoppingList)
+    {
+        $options = $shoppingList->options;
+        if ($options['active']) {
+            $options['active'] = false;
+        } else {
+            $options['active'] = true;
+        }
+        $shoppingList->options = $options;
+        $shoppingList->save();
+        return redirect()->route('shoppinglist.index', $shoppingList)->withStatus("Success.");
     }
 }
