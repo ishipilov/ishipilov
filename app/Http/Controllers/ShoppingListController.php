@@ -28,9 +28,8 @@ class ShoppingListController extends Controller
     {
         $user = $request->user();
         $shopping_list = $user->shopping_list;
-        return [
-            'shopping_list' => $shopping_list,
-        ];
+        //return $shopping_list;
+        return view('shoppinglist.index')->withShoppingList($shopping_list);
     }
 
     /**
@@ -53,12 +52,12 @@ class ShoppingListController extends Controller
     {
         $attributes = $request->validated();
         try {
-            $article = new Article;
-            $article->title = $attributes['title'];
-            $article->text = $attributes['text'];
-            $article->user_id = $request->user()->id;
-            $article->save();
-            return redirect()->route('articles.show', $article)->withStatus("Success.");
+            $user = $request->user();
+            $shopping_list = new ShoppingList;
+            $shopping_list->text = $attributes['text'];
+            $shopping_list->user()->associate($user);
+            $shopping_list->save();
+            return redirect()->route('shoppinglist.index', $article)->withStatus("Success.");
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return back()->withErrors($errors);

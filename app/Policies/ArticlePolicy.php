@@ -36,7 +36,7 @@ class ArticlePolicy
     public function view(?User $user, Article $article)
     {
         return $article->isPublished
-        || $user == $article->user;
+        || $article->user->is($user);
     }
 
     /**
@@ -59,7 +59,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user == $article->user;
+        return $article->user->is($user);
     }
 
     /**
@@ -71,7 +71,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        return $user == $article->user;
+        return $article->user->is($user);
     }
 
     /**

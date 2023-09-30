@@ -30,7 +30,7 @@ class ShoppingListPolicy
      */
     public function view(User $user, ShoppingList $shoppingList)
     {
-        return $user == $shoppingList->user;
+        return $shoppingList->user->is($user);
     }
 
     /**
@@ -53,7 +53,7 @@ class ShoppingListPolicy
      */
     public function update(User $user, ShoppingList $shoppingList)
     {
-        return $user == $shoppingList->user;
+        return $shoppingList->user->is($user);
     }
 
     /**
@@ -65,7 +65,7 @@ class ShoppingListPolicy
      */
     public function delete(User $user, ShoppingList $shoppingList)
     {
-        return $user == $shoppingList->user;
+        return $shoppingList->user->is($user);
     }
 
     /**

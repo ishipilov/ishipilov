@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <vue-shopping_list url="{{ route('shoppinglist.index') }}"/>
+    test
 
 </div>
 @endsection
