@@ -36,9 +36,9 @@ class ShoppingListController extends Controller
      * @param  \App\Models\ShoppingList  $shoppingList
      * @return \Illuminate\Http\Response
      */
-    public function show(ShoppingList $shoppingList)
+    public function show(ShoppingList $shoppinglist)
     {
-        //
+        return new ShoppingListResource($shoppinglist);
     }
 
     /**
@@ -48,7 +48,7 @@ class ShoppingListController extends Controller
      * @param  \App\Models\ShoppingList  $shoppingList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShoppingList $shoppingList)
+    public function update(Request $request, ShoppingList $shoppinglist)
     {
         //
     }
@@ -59,8 +59,28 @@ class ShoppingListController extends Controller
      * @param  \App\Models\ShoppingList  $shoppingList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShoppingList $shoppingList)
+    public function destroy(ShoppingList $shoppinglist)
     {
         //
+    }
+
+    /**
+     * Toggle active state.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ShoppingList  $shoppinglist
+     * @return \Illuminate\Http\Response
+     */
+    public function toggle(Request $request, ShoppingList $shoppinglist)
+    {
+        $options = $shoppinglist->options;
+        if ($options['active']) {
+            $options['active'] = false;
+        } else {
+            $options['active'] = true;
+        }
+        $shoppinglist->options = $options;
+        $shoppinglist->save();
+        return new ShoppingListResource($shoppinglist);
     }
 }

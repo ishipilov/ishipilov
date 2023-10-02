@@ -24,5 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 
 Route::middleware('auth:api')->group(function () {
+    Route::prefix('shoppinglist')->name('shoppinglist.')->group(function () {
+        Route::get('/{shoppinglist}/toggle', [ShoppingListController::class, 'toggle'])->name('toggle');
+    });
     Route::apiResource('shoppinglist', ShoppingListController::class);
 });

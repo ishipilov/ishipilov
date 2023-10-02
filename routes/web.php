@@ -43,10 +43,7 @@ Route::resource('invitations', InvitationController::class)->only(['index', 'cre
 
 Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
 
-Route::prefix('shoppinglist')->name('shoppinglist.')->group(function () {
-	Route::get('/{shoppingList}/toggle', [ShoppingListController::class, 'toggle'])->name('toggle');
-});
-Route::resource('shoppinglist', ShoppingListController::class)->only(['index', 'store', 'update']);
+Route::resource('shoppinglist', ShoppingListController::class)->only(['index']);
 
 
 /**

@@ -108,24 +108,4 @@ class ShoppingListController extends Controller
     {
         //
     }
-
-    /**
-     * Toggle active state.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ShoppingList  $shoppingList
-     * @return \Illuminate\Http\Response
-     */
-    public function toggle(Request $request, ShoppingList $shoppingList)
-    {
-        $options = $shoppingList->options;
-        if ($options['active']) {
-            $options['active'] = false;
-        } else {
-            $options['active'] = true;
-        }
-        $shoppingList->options = $options;
-        $shoppingList->save();
-        return redirect()->route('shoppinglist.index', $shoppingList)->withStatus("Success.");
-    }
 }
