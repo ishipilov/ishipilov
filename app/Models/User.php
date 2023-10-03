@@ -60,7 +60,7 @@ class User extends Authenticatable
 	/**
 	 * Get the user's sopping list.
 	 */
-	public function shopping_list()
+	public function shoppingList()
 	{
 		return $this->hasMany(ShoppingList::class);
 	}
