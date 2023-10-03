@@ -7,6 +7,15 @@
 			</template>
 		</div>
 
+		<div class="form-group mt-3">
+			<div class="input-group mb-3">
+				<input v-model="input" type="text" class="form-control form-control-lg">
+				<div class="input-group-append">
+					<button class="btn btn-outline-primary" type="button" @click.prevent="store()">Store</button>
+				</div>
+			</div>
+		</div>
+
   </div>
 </template>
 
@@ -23,6 +32,7 @@ export default {
 		return {
 			id: null,
 			indata: [],
+			input: '',
 			waiting: false,
 			error: null
 		}
@@ -47,6 +57,28 @@ export default {
 			axios(requestData)
 			.then((response) => {
 				this.$set(this.indata, key, response.data.data)
+				this.waiting = false
+			}).catch((error) => {
+				this.error = error.response
+				this.waiting = false
+			})
+		},
+		store: function () {
+			this.waiting = true
+			let requestData = {
+				headers: { 'Accept': 'application/json' },
+				method: 'post',
+				params: {
+					api_token: this.api_token
+				},
+				data: {
+					text: this.input
+				},
+				url: this.url_store
+			}
+			axios(requestData)
+			.then((response) => {
+				this.indata.push(response.data.data)
 				this.waiting = false
 			}).catch((error) => {
 				this.error = error.response

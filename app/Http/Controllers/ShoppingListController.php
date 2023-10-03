@@ -27,9 +27,9 @@ class ShoppingListController extends Controller
     public function index(Request $request)
     {
         $api_token = $request->user()->api_token;
-        $url_index = route('api.shoppinglist.index');
-        $url_store = route('api.shoppinglist.store');
-        return view('shoppinglist.index')->with([
+        $url_index = route('api.shoppinglists.index');
+        $url_store = route('api.shoppinglists.store');
+        return view('shoppinglists.index')->with([
             'api_token' => $api_token,
             'url_index' => $url_index,
             'url_store' => $url_store,

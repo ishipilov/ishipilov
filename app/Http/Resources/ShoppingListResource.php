@@ -20,8 +20,8 @@ class ShoppingListResource extends JsonResource
             'active' => $this->options['active'],
             'user' => new UserResource($this->user),
             'urls' => [
-                'show' => route('api.shoppinglist.show', $this),
-                'toggle' => route('api.shoppinglist.toggle', $this),
+                'show' => route('api.shoppinglists.show', $this),
+                'toggle' => route('api.shoppinglists.toggle', $this),
             ],
         ];
     }
