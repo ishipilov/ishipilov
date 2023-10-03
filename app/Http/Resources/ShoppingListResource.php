@@ -15,8 +15,10 @@ class ShoppingListResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'text' => $this->text,
             'active' => $this->options['active'],
+            'user' => new UserResource($this->user),
         ];
     }
 }

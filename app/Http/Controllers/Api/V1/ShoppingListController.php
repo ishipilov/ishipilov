@@ -3,12 +3,24 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreShoppingList;
+use App\Http\Requests\UpdateShoppingList;
 use App\Http\Resources\ShoppingListResource;
 use App\Models\ShoppingList;
 use Illuminate\Http\Request;
 
 class ShoppingListController extends Controller
 {
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->authorizeResource(ShoppingList::class, 'shoppinglist');
+	}
+    
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +37,15 @@ class ShoppingListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreShoppingList $request)
     {
-        //
+        $attributes = $request->validated();
+        $user = $request->user();
+        $shoppinglist = new ShoppingList;
+        $shoppinglist->text = $attributes['text'];
+        $shoppinglist->user()->associate($user);
+        $shoppinglist->save();
+        return new ShoppingListResource($shoppinglist);
     }
 
     /**
@@ -48,9 +66,13 @@ class ShoppingListController extends Controller
      * @param  \App\Models\ShoppingList  $shoppingList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShoppingList $shoppinglist)
+    public function update(UpdateShoppingList $request, ShoppingList $shoppinglist)
     {
-        //
+        $attributes = $request->validated();
+        $user = $request->user();
+        $shoppinglist->text = $attributes['text'];
+        $shoppinglist->save();
+        return new ShoppingListResource($shoppinglist);
     }
 
     /**
@@ -61,7 +83,8 @@ class ShoppingListController extends Controller
      */
     public function destroy(ShoppingList $shoppinglist)
     {
-        //
+        $shoppinglist->delete();
+        return response(null, 204);
     }
 
     /**

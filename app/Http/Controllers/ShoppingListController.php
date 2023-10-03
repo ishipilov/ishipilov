@@ -16,7 +16,7 @@ class ShoppingListController extends Controller
 	 */
 	public function __construct()
 	{
-		$this->authorizeResource(ShoppingList::class, 'shopping_list');
+		$this->authorizeResource(ShoppingList::class, 'shoppinglist');
 	}
 
     /**
@@ -28,7 +28,6 @@ class ShoppingListController extends Controller
     {
         $user = $request->user();
         $shopping_list = $user->shopping_list;
-        //return $shopping_list;
         return view('shoppinglist.index')->withShoppingList($shopping_list);
     }
 
@@ -50,18 +49,7 @@ class ShoppingListController extends Controller
      */
     public function store(StoreShoppingList $request)
     {
-        $attributes = $request->validated();
-        try {
-            $user = $request->user();
-            $shoppingList = new ShoppingList;
-            $shoppingList->text = $attributes['text'];
-            $shoppingList->user()->associate($user);
-            $shoppingList->save();
-            return redirect()->route('shoppinglist.index', $shoppingList)->withStatus("Success.");
-        } catch (\Exception $e) {
-            $errors = $e->getMessage();
-            return back()->withErrors($errors);
-        }
+        //
     }
 
     /**

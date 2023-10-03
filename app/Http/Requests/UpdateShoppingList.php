@@ -13,8 +13,20 @@ class UpdateShoppingList extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+
+	/**
+	 * Get custom attributes for validator errors.
+	 *
+	 * @return array
+	 */
+	public function attributes()
+	{
+		return [
+			'text' => 'Text',
+		];
+	}
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +36,7 @@ class UpdateShoppingList extends FormRequest
     public function rules()
     {
         return [
-            //
+			'text' => 'required|string',
         ];
     }
 }

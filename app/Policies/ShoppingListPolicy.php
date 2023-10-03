@@ -18,7 +18,7 @@ class ShoppingListPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user;
     }
 
     /**
@@ -77,7 +77,7 @@ class ShoppingListPolicy
      */
     public function restore(User $user, ShoppingList $shoppingList)
     {
-        //
+        return $shoppingList->user->is($user);
     }
 
     /**
