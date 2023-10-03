@@ -1,6 +1,8 @@
 <template>
 	<div :id="id">
 
+		<div v-if="error" class="alert alert-danger" role="alert">{{ error.data.message }}</div>
+
 		<div class="list-group">
 			<template v-for="(item, key) in indata" v-key="item.id">
 				<a href="#" class="list-group-item list-group-item-action" :class="{ active: item.active }" @click.prevent="toggle(key)">{{ item.text }}</a>
@@ -9,11 +11,16 @@
 
 		<div class="form-group mt-3">
 			<div class="input-group mb-3">
-				<input v-model="input" type="text" class="form-control form-control-lg">
+				<input v-model="input" type="text" class="form-control form-control-lg" placeholder="Text">
 				<div class="input-group-append">
 					<button class="btn btn-outline-primary" type="button" @click.prevent="store()">Store</button>
 				</div>
 			</div>
+		</div>
+
+		<div class="custom-control custom-switch">
+			<input v-model="editMode" type="checkbox" class="custom-control-input" id="editModeSwitch1">
+			<label class="custom-control-label" for="editModeSwitch1">Toggle edit mode</label>
 		</div>
 
   </div>
@@ -33,6 +40,7 @@ export default {
 			id: null,
 			indata: [],
 			input: '',
+			editMode: false,
 			waiting: false,
 			error: null
 		}
