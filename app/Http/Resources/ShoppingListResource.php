@@ -21,6 +21,7 @@ class ShoppingListResource extends JsonResource
             'user' => new UserResource($this->user),
             'urls' => [
                 'show' => route('api.shoppinglists.show', $this),
+                'update' => route('api.shoppinglists.update', $this),
                 'toggle' => route('api.shoppinglists.toggle', $this),
             ],
         ];
