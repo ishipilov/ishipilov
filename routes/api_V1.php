@@ -15,14 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return new \App\Http\Resources\UserResource($request->user());
-});
-
-/**
- * AUTH
- */
-
 Route::middleware('auth:api')->group(function () {
     Route::prefix('shoppinglists')->name('shoppinglists.')->group(function () {
         Route::get('/{shoppinglist}/toggle', [ShoppingListController::class, 'toggle'])->name('toggle');
