@@ -37,7 +37,7 @@ Route::resource('articles', ArticleController::class);
 Route::prefix('invitations')->name('invitations.')->group(function () {
 	Route::post('/register/{invitation}/{hash}', [InvitationController::class, 'register'])->name('register');
 	Route::get('/{invitation}/resend', [InvitationController::class, 'resend'])->name('resend');
-	Route::get('/{invitation}/{hash}', [InvitationController::class, 'show'])->name('show');
+	Route::get('/{invitation}/{hash}', [InvitationController::class, 'show_with_hash'])->name('show_with_hash');
 });
 Route::resource('invitations', InvitationController::class)->only(['index', 'create', 'store', 'destroy']);
 

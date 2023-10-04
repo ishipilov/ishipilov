@@ -49,7 +49,7 @@ class RegisterInvitation extends Mailable
             with: [
                 'name' => $this->invitation->name,
                 'text' => $this->invitation->text,
-                'link' => route('invitations.show', [
+                'link' => route('invitations.show_with_hash', [
                     'invitation' => $this->invitation,
                     'hash' => $this->invitation->hash
                 ]),

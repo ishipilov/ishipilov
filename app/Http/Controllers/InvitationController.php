@@ -23,7 +23,7 @@ class InvitationController extends Controller
 	 */
 	public function __construct()
 	{
-		//$this->authorizeResource(Invitation::class, 'invitation');
+		$this->authorizeResource(Invitation::class, 'invitation');
 	}
 
     /**
@@ -107,9 +107,14 @@ class InvitationController extends Controller
      * @param  \App\Models\Invitation  $invitation
      * @return \Illuminate\Http\Response
      */
-    public function show(Invitation $invitation, String $hash)
+    public function show(Invitation $invitation)
     {
-        $this->authorize('view', [$invitation, $hash]);
+        //
+    }
+
+    public function show_with_hash(Invitation $invitation, String $hash)
+    {
+        $this->authorize('viewWithHash', [$invitation, $hash]);
         return view('invitations.show')
         ->withInvitation($invitation)
         ->withHash($hash);

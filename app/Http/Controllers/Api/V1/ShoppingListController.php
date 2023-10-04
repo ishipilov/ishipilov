@@ -24,11 +24,14 @@ class ShoppingListController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ShoppingListResource::collection(ShoppingList::all());
+        $user = $request->user();
+        $shoppinglists = $user->shoppingLists;
+        return ShoppingListResource::collection($shoppinglists);
     }
 
     /**
