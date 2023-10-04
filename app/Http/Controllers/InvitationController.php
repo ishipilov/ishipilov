@@ -23,7 +23,7 @@ class InvitationController extends Controller
 	 */
 	public function __construct()
 	{
-		$this->authorizeResource(Invitation::class, 'invitation');
+		//$this->authorizeResource(Invitation::class, 'invitation');
 	}
 
     /**
@@ -109,7 +109,7 @@ class InvitationController extends Controller
      */
     public function show(Invitation $invitation, String $hash)
     {
-        $this->authorize('viewHash', [$invitation, $hash]);
+        $this->authorize('view', [$invitation, $hash]);
         return view('invitations.show')
         ->withInvitation($invitation)
         ->withHash($hash);

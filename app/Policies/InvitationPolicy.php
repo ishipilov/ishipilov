@@ -29,12 +29,7 @@ class InvitationPolicy
      * @param  \App\Models\Invitation  $invitation
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Invitation $invitation)
-    {
-        return $user == $invitation->user;
-    }
-
-    public function viewHash(?User $user, Invitation $invitation, String $hash)
+    public function view(?User $user, Invitation $invitation, String $hash)
     {
         return ($invitation->hash == $hash
         && $invitation->target_user == null);
