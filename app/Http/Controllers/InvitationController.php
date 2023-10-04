@@ -94,6 +94,7 @@ class InvitationController extends Controller
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']),
+            'api_token' => Str::random(60),
         ]);
         Auth::loginUsingId($user->id);
         $invitation->target_user_id = $user->id;
