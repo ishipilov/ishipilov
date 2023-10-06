@@ -77,7 +77,7 @@ class ShoppingListPolicy
      */
     public function restore(User $user, ShoppingList $shoppingList)
     {
-        return $shoppingList->user->is($user);
+        //
     }
 
     /**
@@ -90,5 +90,27 @@ class ShoppingListPolicy
     public function forceDelete(User $user, ShoppingList $shoppingList)
     {
         //
+    }
+
+    /**
+     * Determine whether the user can toggle the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\ShoppingList  $shoppingList
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function toggle(User $user, ShoppingList $shoppingList)
+    {
+        return $shoppingList->user->is($user);
+    }
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function indata(User $user)
+    {
+        return $user;
     }
 }

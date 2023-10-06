@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreShoppingList;
 use App\Http\Requests\UpdateShoppingList;
-use App\Http\Resources\ShoppingListResource;
+use App\Http\Resources\ShoppingListApiResource;
 use App\Models\ShoppingList;
 use Illuminate\Http\Request;
 
@@ -31,7 +31,7 @@ class ShoppingListController extends Controller
     {
         $user = $request->user();
         $shoppinglists = $user->shoppingLists;
-        return ShoppingListResource::collection($shoppinglists);
+        return ShoppingListApiResource::collection($shoppinglists);
     }
 
     /**
@@ -48,7 +48,7 @@ class ShoppingListController extends Controller
         $shoppinglist->text = $attributes['text'];
         $shoppinglist->user()->associate($user);
         $shoppinglist->save();
-        return new ShoppingListResource($shoppinglist);
+        return new ShoppingListApiResource($shoppinglist);
     }
 
     /**
@@ -59,7 +59,7 @@ class ShoppingListController extends Controller
      */
     public function show(ShoppingList $shoppinglist)
     {
-        return new ShoppingListResource($shoppinglist);
+        return new ShoppingListApiResource($shoppinglist);
     }
 
     /**
@@ -75,7 +75,7 @@ class ShoppingListController extends Controller
         $user = $request->user();
         $shoppinglist->text = $attributes['text'];
         $shoppinglist->save();
-        return new ShoppingListResource($shoppinglist);
+        return new ShoppingListApiResource($shoppinglist);
     }
 
     /**
@@ -107,6 +107,6 @@ class ShoppingListController extends Controller
         }
         $shoppinglist->options = $options;
         $shoppinglist->save();
-        return new ShoppingListResource($shoppinglist);
+        return new ShoppingListApiResource($shoppinglist);
     }
 }

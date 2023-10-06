@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ShoppingListResource extends JsonResource
+class ShoppingListApiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,9 +20,9 @@ class ShoppingListResource extends JsonResource
             'active' => $this->options['active'],
             'user' => new UserResource($this->user),
             'urls' => [
-                'show' => route('shoppinglists.show', $this),
-                'update' => route('shoppinglists.update', $this),
-                'toggle' => route('shoppinglists.toggle', $this),
+                'show' => route('api.shoppinglists.show', $this),
+                'update' => route('api.shoppinglists.update', $this),
+                'toggle' => route('api.shoppinglists.toggle', $this),
             ],
         ];
     }

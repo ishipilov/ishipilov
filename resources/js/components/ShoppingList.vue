@@ -11,8 +11,11 @@
 
 		<template v-else>
 			<div class="list-group">
-				<template v-for="(item, key) in indata" v-key="item.id">
-					<a href="#" class="list-group-item list-group-item-action" :class="{ active: (editMode && selected == item) || (!editMode && item.active) }" @click.prevent="editMode ? select(item) : toggle(key)">{{ item.text }}</a>
+				<template v-for="(item, key) in inactive_list" v-key="item.id">
+					<a href="#" class="list-group-item list-group-item-action" :class="{ active: (editMode && selected == item) || (!editMode && item.active) }" @click.prevent="editMode ? select(item) : toggle(item)">{{ item.text }}</a>
+				</template>
+				<template v-for="(item, key) in active_list" v-key="item.id">
+					<a href="#" class="list-group-item list-group-item-action" :class="{ active: (editMode && selected == item) || (!editMode && item.active) }" @click.prevent="editMode ? select(item) : toggle(item)">{{ item.text }}</a>
 				</template>
 			</div>
 
@@ -39,8 +42,7 @@
 export default {
   name: 'vue-shopping_list',
   props: {
-		api_token: { type: String, default: "" },
-		url_index: { type: String, default: "" },
+		url_indata: { type: String, default: "" },
 		url_store: { type: String, default: "" }
   },
   data: function () {
@@ -54,6 +56,16 @@ export default {
 			error: null
 		}
   },
+	computed: {
+		active_list: function () {
+			let indata = _.filter(this.indata,  { 'active': true })
+			return _.orderBy(indata, ['text'], ['asc'])
+		},
+		inactive_list: function () {
+			let indata = _.filter(this.indata,  { 'active': false })
+			return _.orderBy(indata, ['text'], ['asc'])
+		}
+	},
   created: function () { this.id = this.$options.name + this._uid },
   mounted: function () {
 		this.load()
@@ -74,9 +86,6 @@ export default {
 			let requestData = {
 				headers: { 'Accept': 'application/json' },
 				method: 'post',
-				params: {
-					api_token: this.api_token
-				},
 				data: {
 					_method: 'PATCH',
 					text: this.input
@@ -95,16 +104,13 @@ export default {
 				//this.waiting = false
 			})
 		},
-		toggle: function (key) {
-			let item = this.indata[key]
+		toggle: function (item) {
+			let key = this.getKeyByValue(this.indata, item)
 			let url_toggle = item.urls.toggle
 			//this.waiting = true
 			let requestData = {
 				headers: { 'Accept': 'application/json' },
 				method: 'get',
-				params: {
-					api_token: this.api_token
-				},
 				url: url_toggle
 			}
 			axios(requestData)
@@ -121,9 +127,6 @@ export default {
 			let requestData = {
 				headers: { 'Accept': 'application/json' },
 				method: 'post',
-				params: {
-					api_token: this.api_token
-				},
 				data: {
 					text: this.input
 				},
@@ -143,10 +146,7 @@ export default {
 			let requestData = {
 				headers: { 'Accept': 'application/json' },
 				method: 'get',
-				params: {
-					api_token: this.api_token
-				},
-				url: this.url_index
+				url: this.url_indata
 			}
 			axios(requestData)
 			.then((response) => {

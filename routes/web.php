@@ -43,8 +43,11 @@ Route::resource('invitations', InvitationController::class)->only(['index', 'cre
 
 Route::resource('notepad', NotepadController::class)->only(['index', 'store', 'update']);
 
-Route::resource('shoppinglists', ShoppingListController::class)->only(['index']);
-
+Route::prefix('shoppinglists')->name('shoppinglists.')->group(function () {
+	Route::get('/{shoppinglist}/toggle', [ShoppingListController::class, 'toggle'])->name('toggle');
+	Route::get('indata', [ShoppingListController::class, 'indata'])->name('indata');
+});
+Route::resource('shoppinglists', ShoppingListController::class)->except(['create', 'edit', 'destroy']);
 
 /**
  * ADMIN
