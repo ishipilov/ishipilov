@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->id == 1;
+        return $user->isIvanShipilov;
     }
 
     /**
@@ -100,6 +100,18 @@ class UserPolicy
      */
     public function login_as(User $user, User $model)
     {
-        return $user->id == 1;
+        return $user->isIvanShipilov;
+    }
+
+    /**
+     * Determine whether the user can generate Api token for the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function generate_api_token(User $user, User $model)
+    {
+        return $user->isIvanShipilov;
     }
 }

@@ -18,8 +18,7 @@ class GuestbookPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->id == 1;
-        return $user;
+        return $user->isIvanShipilov;
     }
 
     /**
@@ -31,8 +30,7 @@ class GuestbookPolicy
      */
     public function view(User $user, Guestbook $guestbook)
     {
-        return $user->id == 1;
-        return $user;
+        return $user->isIvanShipilov;
     }
 
     /**

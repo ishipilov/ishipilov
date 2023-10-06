@@ -18,7 +18,7 @@ class InvitationPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->id == 1;
+        return $user->isIvanShipilov;
     }
 
     /**
@@ -30,7 +30,7 @@ class InvitationPolicy
      */
     public function view(User $user, Invitation $invitation)
     {
-        return $user->id == 1;
+        return $user->isIvanShipilov;
     }
 
     public function viewWithHash(?User $user, Invitation $invitation, String $hash)
@@ -47,7 +47,7 @@ class InvitationPolicy
      */
     public function create(User $user)
     {
-        return $user->id == 1;
+        return $user->isIvanShipilov;
     }
 
     public function resend(User $user, Invitation $invitation)

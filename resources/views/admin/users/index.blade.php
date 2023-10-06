@@ -10,7 +10,13 @@
           <span class="mr-1">{{ $user->name }}</span>
           <a href="mailto:{{ $user->email }}" class="text-decoration-none mr-1">{{ $user->email }}</a>
         </div>
-        <a class="btn btn-outline-primary btn-sm" href="{{ route('admin.users.login_as', $user) }}" role="button">{{ __('Login as') }}</a>
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ __('Actions') }}</button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ route('admin.users.login_as', $user) }}">{{ __('Login as') }}</a>
+            <a class="dropdown-item" href="{{ route('admin.users.generate_api_token', $user) }}">{{ __('Generate Api token') }}</a>
+          </div>
+        </div>
       </li>
     @endforeach
   </ul>

@@ -48,7 +48,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('guestbook.index') }}">{{ __('Guestbook') }}</a>
+                            @can('viewAny', \App\Models\Guestbook::class)
+                                <a class="dropdown-item" href="{{ route('guestbook.index') }}">{{ __('Guestbook') }}</a>
+                            @endcan
                             <a class="dropdown-item" href="{{ route('articles.user') }}">{{ __('My articles') }}</a>
                             <a class="dropdown-item" href="{{ route('shoppinglists.index') }}">{{ __('My shopping lists') }}</a>
                             @can('viewAny', \App\Models\Invitation::class)

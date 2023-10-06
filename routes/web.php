@@ -56,6 +56,7 @@ Route::resource('shoppinglists', ShoppingListController::class)->except(['create
 Route::prefix('admin')->name('admin.')->group(function () {
 	Route::prefix('users')->name('users.')->group(function () {
 		Route::get('login_as/{user}', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
+		Route::get('generate_api_token/{user}', [App\Http\Controllers\Admin\UserController::class, 'generate_api_token'])->name('generate_api_token');
 	});
 	Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
 });

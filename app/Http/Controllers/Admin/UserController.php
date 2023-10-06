@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -107,5 +108,21 @@ class UserController extends Controller
       $this->authorize('login_as', $user);
       Auth::loginUsingId($user->id);
       return redirect()->route('home')->withStatus("Logged in as $user->name");
+    }
+
+    /**
+     * Generate Api token for the specified user.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function generate_api_token(User $user)
+    {
+        $this->authorize('generate_api_token', $user);
+        $token = Str::random(60);
+        $user->forceFill([
+            'api_token' => hash('sha256', $token),
+        ])->save();
+        return back()->withStatus("Success. Api token: $token");
     }
 }

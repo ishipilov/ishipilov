@@ -66,4 +66,14 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(ShoppingList::class);
 	}
+
+	/**
+	 * If user is Ivan Shipilov.
+	 *
+	 * @return boolean
+	 */
+	public function getIsIvanShipilovAttribute()
+	{
+		return $this->email == "ivan@ishipilov.ru";
+	}
 }
