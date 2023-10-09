@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreShoppingList;
 use App\Http\Requests\UpdateShoppingList;
+use App\Http\Resources\ShoppingListApiCollection;
 use App\Http\Resources\ShoppingListApiResource;
 use App\Models\ShoppingList;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class ShoppingListController extends Controller
     {
         $user = $request->user();
         $shoppinglists = $user->shoppingLists;
-        return ShoppingListApiResource::collection($shoppinglists);
+        return new ShoppingListApiCollection($shoppinglists);
     }
 
     /**
