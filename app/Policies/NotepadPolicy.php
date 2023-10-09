@@ -18,7 +18,7 @@ class NotepadPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user;
     }
 
     /**
