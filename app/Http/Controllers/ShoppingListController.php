@@ -118,7 +118,13 @@ class ShoppingListController extends Controller
      */
     public function destroy(ShoppingList $shoppinglist)
     {
-        //
+        try {
+            $shoppinglist->delete();
+            return response(null, 204);
+        } catch (\Exception $e) {
+            $errors = $e->getMessage();
+            return back()->withErrors($errors);
+        }
     }
 
     /**

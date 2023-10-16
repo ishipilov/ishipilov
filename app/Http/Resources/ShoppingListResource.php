@@ -22,6 +22,7 @@ class ShoppingListResource extends JsonResource
             'urls' => [
                 'show' => route('shoppinglists.show', $this),
                 'update' => route('shoppinglists.update', $this),
+                'destroy' => route('shoppinglists.destroy', $this),
                 'toggle' => route('shoppinglists.toggle', $this),
             ],
         ];

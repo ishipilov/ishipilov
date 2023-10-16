@@ -23,7 +23,7 @@
 				<div class="input-group">
 					<input v-model="input" type="text" class="form-control form-control-lg">
 					<div class="input-group-append">
-						<button class="btn btn-outline-primary" type="button" @click.prevent="selected ? update() : store()">{{ selected ? 'Update' : 'Store' }}</button>
+						<button class="btn btn-outline-primary" type="button" @click.prevent="selected ? (input ? update() : destroy()) : store()">{{ selected ? (input ? 'Update' : 'Delete') : 'Store' }}</button>
 					</div>
 				</div>
 			</div>
@@ -79,6 +79,29 @@ export default {
 				this.selected = item
 				this.input = item.text
 			}
+		},
+		destroy: function () {
+			let url_destroy = this.selected.urls.destroy
+			//this.waiting = true
+			let requestData = {
+				headers: { 'Accept': 'application/json' },
+				method: 'post',
+				data: {
+					_method: 'DELETE'
+				},
+				url: url_destroy
+			}
+			axios(requestData)
+			.then((response) => {
+				let key = this.getKeyByValue(this.indata, this.selected)
+				this.$delete(this.indata, key, response.data.data)
+				this.selected = null
+				this.input = ''
+				//this.waiting = false
+			}).catch((error) => {
+				this.error = error.response
+				//this.waiting = false
+			})
 		},
 		update: function () {
 			let url_update = this.selected.urls.update

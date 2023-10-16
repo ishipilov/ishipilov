@@ -27,6 +27,9 @@ return [
       'reset' => 'Password reset',
     ],
     'register' => 'Register',
+    'shoppinglists' => [
+      'index' => 'Shopping lists',
+    ],
     'test' => 'Test page',
   ]
 ];

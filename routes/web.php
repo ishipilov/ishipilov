@@ -47,7 +47,7 @@ Route::prefix('shoppinglists')->name('shoppinglists.')->group(function () {
 	Route::get('/{shoppinglist}/toggle', [ShoppingListController::class, 'toggle'])->name('toggle');
 	Route::get('indata', [ShoppingListController::class, 'indata'])->name('indata');
 });
-Route::resource('shoppinglists', ShoppingListController::class)->except(['create', 'edit', 'destroy']);
+Route::resource('shoppinglists', ShoppingListController::class)->except(['create', 'edit']);
 
 /**
  * ADMIN
