@@ -127,7 +127,7 @@ class ArticleController extends Controller
     {
         try {
             $article->delete();
-            return redirect()->route('articles.index')->withStatus("Success.");
+            return redirect()->route('articles.user')->withStatus("Success.");
         } catch (\Exception $e) {
             $errors = $e->getMessage();
             return back()->withErrors($errors);
