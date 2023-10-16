@@ -10,9 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('articles.index') }}">{{ __('Articles') }}</a>
-                </li>
+                
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -56,7 +54,6 @@
                             @can('viewAny', \App\Models\Invitation::class)
                                 <a class="dropdown-item" href="{{ route('invitations.index') }}">{{ __('My invitations') }}</a>
                             @endcan
-                            <a class="dropdown-item" href="{{ route('test') }}">{{ __('Test page') }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="dropdown-item" href="{{ route('logout') }}"

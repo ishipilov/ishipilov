@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $lotos = \App\Models\Loto::all();
-        return view('home')->withLotos($lotos);
+        $articles = Article::published()->ordered()->get();
+        return view('home')->withArticles($articles);
     }
 }

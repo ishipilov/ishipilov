@@ -3,6 +3,10 @@
 @section('content')
 <div class="container">
 
+    <div class="mb-3">
+        @include('articles.subviews.list', [ 'articles' => $articles ])
+    </div>
+
     @include('guestbook.subviews.form-create')
 
 </div>
