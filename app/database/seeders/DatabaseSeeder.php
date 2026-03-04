@@ -20,10 +20,11 @@ class DatabaseSeeder extends Seeder
     $this->call(RolesSeeder::class);
     $this->call(UserSeeder::class);
 
+    $this->call(ChatSeeder::class);
+
     if (App::environment('local')) {
       Memo::factory(99)->create();
       Post::factory(99)->create();
-      $this->call(ChatSeeder::class);
     }
   }
 }

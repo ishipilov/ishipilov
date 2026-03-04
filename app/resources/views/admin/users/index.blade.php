@@ -22,18 +22,9 @@
               <a href="mailto:{{ $user->email }}" class="text-decoration-none small">{{ $user->email }}</a>
             </td>
             <td>
-              <dl class="row mb-0">
-                @foreach($user->roles as $role)
-                  <dt class="col-sm-3">
-                    <span class="badge badge-primary">{{ $role->name }}</span>
-                  </dt>
-                  <dd class="col-sm-9">
-                    @foreach($role->getPermissionNames() as $permission_name)
-                      <span class="badge badge-secondary">{{ $permission_name }}</span>
-                    @endforeach
-                  </dd>
-                @endforeach
-              </dl>
+              @foreach($user->roles as $role)
+                <span class="badge badge-primary">{{ $role->name }}</span>
+              @endforeach
             </td>
             <td>
               @foreach($user->getDirectPermissions() as $permission)

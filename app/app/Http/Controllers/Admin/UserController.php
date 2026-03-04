@@ -112,30 +112,16 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Assign permission to the user.
-	 *
-	 * @param  \App\Models\User  $user
-	 * @param  \Spatie\Permission\Models\Permission  $permission
-	 * @return \Illuminate\Http\Response
-	 */
-	public function givePermissionTo(User $user, Permission $permission)
-	{
-		$this->authorize('givePermissionTo', [$user, $permission]);
-		$user->givePermissionTo($permission);
-		return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
-	}
-
-	/**
 	 * Assign role to the user.
 	 *
+     * @param  \Illuminate\Http\Request  $request
 	 * @param  \App\Models\User  $user
-	 * @param  \Spatie\Permission\Models\Role  $role
 	 * @return \Illuminate\Http\Response
 	 */
-	public function assignRole(User $user, Role $role)
+	public function assignRole(Request $request, User $user)
 	{
-		$this->authorize('assignRole', [$user, $role]);
-		$user->assignRole($role);
+		$this->authorize('assignRole', $user);
+		$user->assignRole($request->role);
 		return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
 	}
 }

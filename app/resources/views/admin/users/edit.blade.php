@@ -43,6 +43,21 @@
     <div class="card mb-3">
       <div class="card-body">
 
+        @can('assign role')
+          <form method="GET" action="{{ route('admin.users.assign.role', $user) }}" class="mb-4">
+            <div class="input-group">
+              <select class="custom-select" id="role" name="role">
+                @foreach(\Spatie\Permission\Models\Role::all()->pluck('name') as $role)
+                  <option value="{{ $role }}">{{ $role }}</option>
+                @endforeach
+              </select>
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">{{ __('Assign role') }}</button>
+              </div>
+            </div>
+          </form>
+        @endcan
+
         <dl class="row mb-0">
           <dt class="col-sm-3">{{ __('Roles with permissions') }}</dt>
           <dd class="col-sm-9">
@@ -61,14 +76,16 @@
           </dd>
         </dl>
 
-        <dl class="row mb-0">
-          <dt class="col-sm-3">{{ __('Direct Permissions') }}</dt>
-          <dd class="col-sm-9">
-            @foreach($user->getDirectPermissions() as $permission)
-              <span class="badge badge-secondary">{{ $permission->name }}</span>
-            @endforeach
-          </dd>
-        </dl>
+        @if ($user->getDirectPermissions()->count())
+          <dl class="row mb-0">
+            <dt class="col-sm-3">{{ __('Direct Permissions') }}</dt>
+            <dd class="col-sm-9">
+              @foreach($user->getDirectPermissions() as $permission)
+                <span class="badge badge-secondary">{{ $permission->name }}</span>
+              @endforeach
+            </dd>
+          </dl>
+        @endif
 
       </div>
     </div>

@@ -22,8 +22,17 @@ class RolesSeeder extends Seeder
 		$role_user = Role::where('name', 'user')->first();
 		if (! $role_user) $role_user = Role::create(['name' => 'user']);
 
+		$role_posts = Role::where('name', 'posts')->first();
+		if (! $role_posts) $role_posts = Role::create(['name' => 'posts']);
+
+		$role_uploads = Role::where('name', 'uploads')->first();
+		if (! $role_uploads) $role_uploads = Role::create(['name' => 'uploads']);
+
 		$permission_login_as = Permission::where('name', 'login as')->first();
 		if (! $permission_login_as) $permission_login_as = Permission::create(['name' => 'login as']);
+
+		$permission_assign_role = Permission::where('name', 'assign role')->first();
+		if (! $permission_assign_role) $permission_assign_role = Permission::create(['name' => 'assign role']);
 
 		$permission_chat = Permission::where('name', 'chat')->first();
 		if (! $permission_chat) $permission_chat = Permission::create(['name' => 'chat']);
@@ -37,8 +46,9 @@ class RolesSeeder extends Seeder
 		$permission_uploads = Permission::where('name', 'uploads')->first();
 		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'uploads']);
 
-        $role_admin->syncPermissions([$permission_login_as]);
-		
-        $role_user->syncPermissions([$permission_chat, $permission_memos]);
+        $role_admin->syncPermissions([$permission_assign_role]);
+		$role_user->syncPermissions([$permission_chat, $permission_memos]);
+        $role_posts->syncPermissions([$permission_posts]);
+        $role_uploads->syncPermissions([$permission_uploads]);
     }
 }

@@ -106,29 +106,15 @@ class UserPolicy
 	}
 
 	/**
-	 * Determine whether the user can give permission to the model.
-	 *
-	 * @param  \App\Models\User  $user
-	 * @param  \App\Models\User  $model
-	 * @param  \Spatie\Permission\Models\Permission  $permission
-	 * @return \Illuminate\Auth\Access\Response|bool
-	 */
-	public function givePermissionTo(User $user, User $model, Permission $permission)
-	{
-        return $user->hasRole('admin');
-	}
-
-	/**
 	 * Determine whether the user can assign role to the model.
 	 *
 	 * @param  \App\Models\User  $user
 	 * @param  \App\Models\User  $model
-	 * @param  \Spatie\Permission\Models\Role  $role
 	 * @return \Illuminate\Auth\Access\Response|bool
 	 */
-	public function assignRole(User $user, User $model, Role $role)
+	public function assignRole(User $user, User $model)
 	{
-        return $user->hasRole('admin');
+        return $user->can('assign role');
 	}
 
     /**

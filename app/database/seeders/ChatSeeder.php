@@ -7,6 +7,7 @@ use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class ChatSeeder extends Seeder
 {
@@ -30,12 +31,13 @@ class ChatSeeder extends Seeder
         ]);
 
         $users = User::all();
-        
         $rooms = ChatRoom::all();
         foreach ($rooms as $room) {
             $room->users()->attach($users->pluck('id'));
         }
 
-        ChatMessage::factory(999)->create();
+        if (App::environment('local')) {
+            ChatMessage::factory(9)->create();
+        }
     }
 }
