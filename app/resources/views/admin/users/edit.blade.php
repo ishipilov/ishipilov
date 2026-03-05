@@ -47,6 +47,7 @@
           <form method="GET" action="{{ route('admin.users.assign.role', $user) }}" class="mb-4">
             <div class="input-group">
               <select class="custom-select" id="role" name="role">
+                <option></option>
                 @foreach(\Spatie\Permission\Models\Role::all()->pluck('name') as $role)
                   <option value="{{ $role }}">{{ $role }}</option>
                 @endforeach
