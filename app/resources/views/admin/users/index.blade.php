@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container">
+
+  <nav class="nav mb-3">
+    @can('create', \App\Models\User::class)
+      <a class="nav-link" href="{{ route('admin.users.create') }}">{{ __('routes.web.admin.users.create') }}</a>
+    @endcan
+  </nav>
+
   <div class="table-responsive">
     <table class="table table-sm">
       <thead>

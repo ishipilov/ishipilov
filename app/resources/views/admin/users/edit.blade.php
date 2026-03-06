@@ -64,13 +64,16 @@
           <dd class="col-sm-9">
             @foreach($user->roles as $role)
               <dl class="row mb-0">
-                <dt class="col-sm-3">
+                <dt class="col-sm-2">
                   <span class="badge badge-primary">{{ $role->name }}</span>
                 </dt>
-                <dd class="col-sm-9">
+                <dd class="col-sm-6">
                   @foreach($role->getPermissionNames() as $permission_name)
                     <span class="badge badge-secondary">{{ $permission_name }}</span>
                   @endforeach
+                </dd>
+                <dd class="col-sm-4">
+                  rewoke {{ $role->name }}
                 </dd>
               </dl>
             @endforeach

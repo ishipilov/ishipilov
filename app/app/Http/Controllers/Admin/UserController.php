@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUser;
+use App\Http\Requests\UpdateUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -39,7 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -48,9 +52,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        //
+        $validated = $request->validated();
+        try {
+            $user = new User;
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->password = Hash::make(Str::random(10));
+            $user->save();
+            return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
+        } catch (\Exception $e) {
+            $errors = $e->getMessage();
+            return back()->withErrors($errors);
+        }
     }
 
     /**
@@ -82,9 +97,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUser $request, User $user)
     {
-        dd('Admin\UserController show', $request->input(), $user);
+        $validated = $request->validated();
+        try {
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->save();
+            return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
+        } catch (\Exception $e) {
+            $errors = $e->getMessage();
+            return back()->withErrors($errors);
+        }
     }
 
     /**
@@ -95,7 +119,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        dd('Admin\UserController destroy', $user);
+        try {
+            $user->delete();
+            return redirect()->route('admin.users.index')->withStatus("Success.");
+        } catch (\Exception $e) {
+            $errors = $e->getMessage();
+            return back()->withErrors($errors);
+        }
     }
 
 	/**
