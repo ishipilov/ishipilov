@@ -9,47 +9,33 @@
     @endcan
   </nav>
 
-  <div class="table-responsive">
-    <table class="table table-sm">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">{{ __('Name and Email') }}</th>
-          <th scope="col">{{ __('Roles with permissions') }}</th>
-          <th scope="col">{{ __('Direct Permissions') }}</th>
-          <th scope="col">{{ __('Actions') }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($users as $user)
-          <tr>
-            <th scope="row">{{ $user->id }}</th>
-            <td>
-              <div>{{ $user->name }}</div>
-              <a href="mailto:{{ $user->email }}" class="text-decoration-none small">{{ $user->email }}</a>
-            </td>
-            <td>
-              @foreach($user->roles as $role)
-                <span class="badge badge-primary">{{ $role->name }}</span>
-              @endforeach
-            </td>
-            <td>
-              @foreach($user->getDirectPermissions() as $permission)
-                <span class="badge badge-secondary">{{ $permission->name }}</span>
-              @endforeach
-            </td>
-            <td>
-              @can('update', $user)
-                <a href="{{ route('admin.users.edit', $user) }}" class="d-block text-decoration-none">{{ __('routes.web.admin.users.edit') }}</a>
-              @endcan
-              @can('login as')
-                <a href="{{ route('admin.users.login.as', $user) }}" class="d-block text-decoration-none">{{ __('Login as') }}</a>
-              @endcan
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
+  <div class="card mb-3">
+    <div class="list-group list-group-flush">
+      @foreach ($users as $user)
+        <a href="{{ route('admin.users.show', $user) }}" class="list-group-item list-group-item-action">
+          <div class="d-sm-flex justify-content-between">
+            <div>
+              <div><span class="text-muted small">{{ $user->id }}</span></div>
+              <div><span>{{ $user->name }}</span></div>
+              <div><span class="text-muted small">{{ $user->email }}</span></div>
+            </div>
+            <div>
+              <div>
+                @foreach($user->roles as $role)
+                  <span class="badge badge-primary">{{ $role->name }}</span>
+                @endforeach
+              </div>
+              <div>
+                @foreach($user->getDirectPermissions() as $permission)
+                  <span class="badge badge-secondary">{{ $permission->name }}</span>
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </a>
+      @endforeach
+    </div>
   </div>
+
 </div>
 @endsection

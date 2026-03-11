@@ -120,9 +120,14 @@ Breadcrumbs::for('admin.users.create', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.admin.users.create'), route('admin.users.create'));
 });
 
+// Home > Admin > Users > Show
+Breadcrumbs::for('admin.users.show', function (BreadcrumbTrail $trail, User $user) {
+    $trail->parent('admin.users.index');
+    $trail->push($user->name, route('admin.users.show', $user));
+});
+
 // Home > Admin > Users > Edit
 Breadcrumbs::for('admin.users.edit', function (BreadcrumbTrail $trail, User $user) {
-    $trail->parent('admin.users.index');
-    $trail->push($user->name);
+    $trail->parent('admin.users.show', $user);
     $trail->push(Lang::get('routes.web.admin.users.edit'), route('admin.users.edit', $user));
 });
