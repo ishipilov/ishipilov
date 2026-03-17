@@ -44,10 +44,11 @@
       <div class="card-body">
 
         @can('assign role')
-          <form method="GET" action="{{ route('admin.users.assign.role', $user) }}" class="mb-4">
+          <form method="POST" action="{{ route('admin.users.roles.assign', $user) }}" class="mb-4">
+            @method('POST')
+            @csrf
             <div class="input-group">
               <select class="custom-select" id="role" name="role">
-                <option></option>
                 @foreach(\Spatie\Permission\Models\Role::all()->pluck('name') as $role)
                   <option value="{{ $role }}">{{ $role }}</option>
                 @endforeach
@@ -72,9 +73,13 @@
                     <span class="badge badge-secondary">{{ $permission_name }}</span>
                   @endforeach
                 </dd>
-                <dd class="col-sm-4">
-                  rewoke {{ $role->name }}
-                </dd>
+                @can('remove role')
+                  <dd class="col-sm-4">
+                    <a href="{{ route('admin.users.roles.remove', [$user, $role]) }}" class="text-decoration-none text-danger">
+                      {{ __('Remove role') }}
+                    </a>
+                  </dd>
+                @endcan
               </dl>
             @endforeach
           </dd>

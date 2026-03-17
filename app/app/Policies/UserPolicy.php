@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Spatie\Permission\Models\Permission;
+//use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserPolicy
@@ -102,7 +102,7 @@ class UserPolicy
 	 */
 	public function loginAs(User $user, User $model)
 	{
-		return $user->can('login as');
+		return $user->isNot($model) && $user->can('login as');
 	}
 
 	/**
@@ -112,9 +112,21 @@ class UserPolicy
 	 * @param  \App\Models\User  $model
 	 * @return \Illuminate\Auth\Access\Response|bool
 	 */
-	public function assignRole(User $user, User $model)
+	public function assignRole(User $user, User $model, String $role)
 	{
         return $user->can('assign role');
+	}
+
+	/**
+	 * Determine whether the user can remove role from the model.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\User  $model
+	 * @return \Illuminate\Auth\Access\Response|bool
+	 */
+	public function removeRole(User $user, User $model, Role $role)
+	{
+        return $user->can('remove role');
 	}
 
     /**

@@ -89,7 +89,8 @@ Route::middleware(['role:admin'])->group(function () {
 
     Route::prefix('users')->name('users.')->group(function () {
       Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'loginAs'])->name('login.as');
-      Route::get('{user}/assign_role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('assign.role');
+      Route::post('{user}/assign_role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('roles.assign');
+      Route::get('{user}/remove_role/{role}', [App\Http\Controllers\Admin\UserController::class, 'removeRole'])->name('roles.remove');
     });
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     

@@ -144,14 +144,42 @@ class UserController extends Controller
 	/**
 	 * Assign role to the user.
 	 *
-     * @param  \Illuminate\Http\Request  $request
+   * @param  \Illuminate\Http\Request  $request
 	 * @param  \App\Models\User  $user
 	 * @return \Illuminate\Http\Response
 	 */
 	public function assignRole(Request $request, User $user)
 	{
-		$this->authorize('assignRole', $user);
-		$user->assignRole($request->role);
-		return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
+    try {
+      $role = $request->role;
+      if ($user->hasRole($role)) {
+        return back()->withErrors("$user->name has $role role.");
+      }
+      $this->authorize('assignRole', [$user, $role]);
+      $user->assignRole($role);
+      return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
+    } catch (\Exception $e) {
+      $errors = $e->getMessage();
+      return back()->withErrors($errors);
+    }
+	}
+
+	/**
+	 * Remove role from the user.
+	 *
+   * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\User  $user
+	 * @return \Illuminate\Http\Response
+	 */
+	public function removeRole(Request $request, User $user, Role $role)
+	{
+    try {
+      $this->authorize('removeRole', [$user, $role]);
+      $user->removeRole($role);
+      return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
+    } catch (\Exception $e) {
+      $errors = $e->getMessage();
+      return back()->withErrors($errors);
+    }
 	}
 }
