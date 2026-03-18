@@ -43,6 +43,9 @@ return [
     ],
     'admin' => [
       'index' => 'Admin',
+      'roles' => [
+        'index' => 'Roles',
+      ],
       'users' => [
         'index' => 'Users',
         'create' => 'Create',

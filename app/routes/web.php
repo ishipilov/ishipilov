@@ -87,6 +87,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['role:admin'])->group(function () {
   Route::prefix('admin')->name('admin.')->group(function () {
 
+    Route::prefix('roles')->name('roles.')->group(function () {
+      //
+    });
+    Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
+
     Route::prefix('users')->name('users.')->group(function () {
       Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'loginAs'])->name('login.as');
       Route::post('{user}/assign_role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('roles.assign');

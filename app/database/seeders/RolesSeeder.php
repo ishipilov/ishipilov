@@ -28,6 +28,7 @@ class RolesSeeder extends Seeder
 		$role_uploads = Role::where('name', 'uploads')->first();
 		if (! $role_uploads) $role_uploads = Role::create(['name' => 'uploads']);
 
+
 		$permission_login_as = Permission::where('name', 'login as')->first();
 		if (! $permission_login_as) $permission_login_as = Permission::create(['name' => 'login as']);
 
@@ -49,6 +50,7 @@ class RolesSeeder extends Seeder
 		$permission_uploads = Permission::where('name', 'uploads')->first();
 		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'uploads']);
 
+		
         $role_admin->syncPermissions([$permission_assign_role, $permission_remove_role]);
 		$role_user->syncPermissions([$permission_chat, $permission_memos]);
         $role_posts->syncPermissions([$permission_posts]);

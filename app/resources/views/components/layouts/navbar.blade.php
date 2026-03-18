@@ -75,6 +75,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             @hasrole('admin')
                                 <h6 class="dropdown-header">{{ __('Admin') }}</h6>
+                                <a class="dropdown-item" href="{{ route('admin.roles.index') }}">{{ __('Roles') }}</a>
                                 <a class="dropdown-item" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                                 <div class="dropdown-divider"></div>
                             @endhasrole

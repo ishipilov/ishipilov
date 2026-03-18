@@ -108,6 +108,12 @@ Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.admin.index'));
 });
 
+// Home > Admin > Roles
+Breadcrumbs::for('admin.roles.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin');
+    $trail->push(Lang::get('routes.web.admin.roles.index'), route('admin.roles.index'));
+});
+
 // Home > Admin > Users
 Breadcrumbs::for('admin.users.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
