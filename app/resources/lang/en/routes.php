@@ -45,6 +45,11 @@ return [
       'index' => 'Admin',
       'roles' => [
         'index' => 'Roles',
+        'create' => 'Create',
+        'store' => 'Store',
+        'edit' => 'Edit',
+        'update' => 'Update',
+        'destroy' => 'Delete',
       ],
       'users' => [
         'index' => 'Users',

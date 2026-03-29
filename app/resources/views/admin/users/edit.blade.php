@@ -22,14 +22,14 @@
           @method('PATCH')
           @csrf
           <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label text-sm-right">Name</label>
+            <label for="name" class="col-sm-2 col-form-label text-sm-right">Name</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label text-sm-right">Email</label>
+            <label for="email" class="col-sm-2 col-form-label text-sm-right">Email</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}">
             </div>

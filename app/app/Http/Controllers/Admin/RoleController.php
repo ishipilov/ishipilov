@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -25,7 +26,7 @@ class RoleController extends Controller
    */
   public function index()
   {
-    $roles = Role::all();
+    $roles = Role::orderBy('name')->get();
     return view('admin.roles.index')->withRoles($roles);
   }
 
@@ -67,9 +68,12 @@ class RoleController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit(Role $role)
   {
-      //
+    $allPermissions = Permission::orderBy('name')->get();
+    return view('admin.roles.edit')
+    ->withRole($role)
+    ->withAllPermissions($allPermissions);
   }
 
   /**
@@ -79,9 +83,21 @@ class RoleController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(Request $request, Role $role)
   {
-      //
+    $validated = $request->validate([
+      'name' => [ 'required', 'string'],
+      'permissions' => [ 'required', 'array']
+    ]);
+    $role->name = $validated['name'];
+    $role->save();
+    $role->syncPermissions($validated['permissions']);
+    try {
+      return redirect()->route('admin.roles.edit', $role)->withStatus("Success.");
+    } catch (\Exception $e) {
+      $errors = $e->getMessage();
+      return back()->withErrors($errors);
+    }
   }
 
   /**

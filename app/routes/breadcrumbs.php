@@ -12,6 +12,7 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 use App\Models\ChatRoom;
 use App\Models\Post;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
@@ -112,6 +113,13 @@ Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.roles.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
     $trail->push(Lang::get('routes.web.admin.roles.index'), route('admin.roles.index'));
+});
+
+// Home > Admin > Roles > Edit
+Breadcrumbs::for('admin.roles.edit', function (BreadcrumbTrail $trail, Role $role) {
+    $trail->parent('admin.roles.index');
+    $trail->push($role->name);
+    $trail->push(Lang::get('routes.web.admin.roles.edit'), route('admin.roles.edit', $role));
 });
 
 // Home > Admin > Users
