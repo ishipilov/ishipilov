@@ -9,16 +9,6 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-    $this->middleware('role:admin');
-	}
-
   /**
    * Display a listing of the resource.
    *
