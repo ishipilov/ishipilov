@@ -115,6 +115,12 @@ Breadcrumbs::for('admin.roles.index', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.admin.roles.index'), route('admin.roles.index'));
 });
 
+// Home > Admin > Roles > Create
+Breadcrumbs::for('admin.roles.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.roles.index');
+    $trail->push(Lang::get('routes.web.admin.roles.create'), route('admin.roles.create'));
+});
+
 // Home > Admin > Roles > Edit
 Breadcrumbs::for('admin.roles.edit', function (BreadcrumbTrail $trail, Role $role) {
     $trail->parent('admin.roles.index');

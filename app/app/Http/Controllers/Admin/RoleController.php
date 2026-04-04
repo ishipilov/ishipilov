@@ -37,7 +37,9 @@ class RoleController extends Controller
    */
   public function create()
   {
-      //
+    $allPermissions = Permission::orderBy('name')->get();
+    return view('admin.roles.create')
+    ->withAllPermissions($allPermissions);
   }
 
   /**
@@ -48,7 +50,21 @@ class RoleController extends Controller
    */
   public function store(Request $request)
   {
-      //
+    $validated = $request->validate([
+      'name' => [ 'required', 'string'],
+      'permissions' => [ 'required', 'array']
+    ]);
+    try {
+      $role = new Role;
+      $role->name = $validated['name'];
+      $role->save();
+      $role->syncPermissions($validated['permissions']);
+      return redirect()->route('admin.roles.edit', $role)->withStatus("Success.");
+    } catch (\Exception $e) {
+      $errors = $e->getMessage();
+      return back()->withErrors($errors);
+    }
+    return $validated;
   }
 
   /**
@@ -89,10 +105,10 @@ class RoleController extends Controller
       'name' => [ 'required', 'string'],
       'permissions' => [ 'required', 'array']
     ]);
-    $role->name = $validated['name'];
-    $role->save();
-    $role->syncPermissions($validated['permissions']);
     try {
+      $role->name = $validated['name'];
+      $role->save();
+      $role->syncPermissions($validated['permissions']);
       return redirect()->route('admin.roles.edit', $role)->withStatus("Success.");
     } catch (\Exception $e) {
       $errors = $e->getMessage();
@@ -106,8 +122,14 @@ class RoleController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy(Role $role)
   {
-      //
+    try {
+      $role->delete();
+      return redirect()->route('admin.roles.index')->withStatus("Success.");
+    } catch (\Exception $e) {
+      $errors = $e->getMessage();
+      return back()->withErrors($errors);
+    }
   }
 }

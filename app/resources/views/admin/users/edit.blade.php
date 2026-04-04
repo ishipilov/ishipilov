@@ -60,30 +60,32 @@
           </form>
         @endcan
 
-        <dl class="row mb-0">
-          <dt class="col-sm-3">{{ __('Roles with permissions') }}</dt>
-          <dd class="col-sm-9">
-            @foreach($user->roles as $role)
-              <dl class="row mb-0">
-                <dt class="col-sm-2">
-                  <span class="badge badge-primary">{{ $role->name }}</span>
-                </dt>
-                <dd class="col-sm-6">
-                  @foreach($role->getPermissionNames() as $permission_name)
-                    <span class="badge badge-secondary">{{ $permission_name }}</span>
-                  @endforeach
-                </dd>
-                @can('remove role')
-                  <dd class="col-sm-4">
-                    <a href="{{ route('admin.users.roles.remove', [$user, $role]) }}" class="text-decoration-none text-danger">
-                      {{ __('Remove role') }}
-                    </a>
+        @if ($user->roles->count())
+          <dl class="row mb-0">
+            <dt class="col-sm-3">{{ __('Roles with permissions') }}</dt>
+            <dd class="col-sm-9">
+              @foreach($user->roles as $role)
+                <dl class="row mb-0">
+                  <dt class="col-sm-2">
+                    <span class="badge badge-primary">{{ $role->name }}</span>
+                  </dt>
+                  <dd class="col-sm-6">
+                    @foreach($role->getPermissionNames() as $permission_name)
+                      <span class="badge badge-secondary">{{ $permission_name }}</span>
+                    @endforeach
                   </dd>
-                @endcan
-              </dl>
-            @endforeach
-          </dd>
-        </dl>
+                  @can('remove role')
+                    <dd class="col-sm-4">
+                      <a href="{{ route('admin.users.roles.remove', [$user, $role]) }}" class="text-decoration-none text-danger">
+                        {{ __('Remove role') }}
+                      </a>
+                    </dd>
+                  @endcan
+                </dl>
+              @endforeach
+            </dd>
+          </dl>
+        @endif
 
         @if ($user->getDirectPermissions()->count())
           <dl class="row mb-0">

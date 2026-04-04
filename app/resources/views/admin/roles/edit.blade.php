@@ -3,6 +3,17 @@
 @section('content')
 <div class="container">
 
+    <nav class="nav mb-3">
+      <a href="{{ route('admin.roles.destroy', $role) }}" class="nav-link text-danger"
+        onclick="event.preventDefault(); let confirmed = confirm('Delete?'); if (confirmed) { document.getElementById('delete-role-{{ $role->id }}').submit(); }">
+        {{ __('routes.web.admin.roles.destroy') }}
+      </a>
+      <form id="delete-role-{{ $role->id }}" action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="d-none">
+        @method('DELETE')
+        @csrf
+      </form>
+    </nav>
+
     <div class="card mb-3">
       <div class="card-body">
         <form method="POST" action="{{ route('admin.roles.update', $role) }}">

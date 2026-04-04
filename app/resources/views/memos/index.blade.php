@@ -35,7 +35,7 @@
     <div class="list-group mb-3">
       @foreach ($memos as $memo)
         @can('view', $memo)
-          <div class="list-group-item d-flex" style="overflow-x: auto;">
+          <div class="list-group-item d-flex @if($memo->deleted_at) list-group-item-light @endif" style="overflow-x: auto;">
 
             <div class="mr-3">
               @if ($memo->is_valid_url)
@@ -45,9 +45,9 @@
               @endif
             </div>
 
-            @can('delete', $memo)
-              <div class="ml-auto">
-                @if (empty($memo->deleted_at))
+            <div class="ml-auto">
+              @if (empty($memo->deleted_at))
+                @can('delete', $memo)
                   <a href="{{ route('memos.destroy', $memo) }}" class="text-decoration-none text-danger"
                   onclick="event.preventDefault(); let confirmed = confirm('Delete?'); if (confirmed) { document.getElementById('delete-memo-{{ $memo->id }}').submit(); }">
                     {{ __('Delete') }}
@@ -56,11 +56,11 @@
                     @method('DELETE')
                     @csrf
                   </form>
-                @else
-                  <span class="text-danger text-nowrap">{{ DateHelper::isoFormat($memo->deleted_at) }}</span>
-                @endif
-              </div>
-            @endcan
+                @endcan
+              @else
+                <span class="text-danger text-nowrap">{{ DateHelper::isoFormat($memo->deleted_at) }}</span>
+              @endif
+            </div>
 
           </div>
         @endcan
