@@ -35,6 +35,7 @@ return [
     ],
     'uploads' => [
       'index' => 'Uploads',
+      'store' => 'Store',
       'destroy' => 'Delete',
       'download' => 'Download',
     ],
