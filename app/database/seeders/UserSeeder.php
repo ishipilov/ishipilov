@@ -31,16 +31,14 @@ class UserSeeder extends Seeder
     ]);
 
 		User::where('email', 'www@ishipilov.ru')->first()
-    ->syncRoles(['admin', 'roles manager', 'user', 'posts', 'uploads'])
+    ->syncRoles(['admin', 'roles manager', 'user'])
     ->syncPermissions(['admin', 'login as']);
 
     if (App::environment('local')) {
-      User::factory(9)->create();
+      User::factory(4)->create();
       User::find(2)->syncRoles(['admin']);
       User::find(3)->syncRoles(['roles manager']);
       User::find(4)->syncRoles(['user']);
-      User::find(5)->syncRoles(['user', 'posts']);
-      User::find(6)->syncRoles(['user', 'posts', 'uploads']);
     }
   }
 }

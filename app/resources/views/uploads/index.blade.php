@@ -113,8 +113,13 @@ function copyToClipboard(text) {
   textarea.value = text
   document.body.appendChild(textarea)
   textarea.select()
-  let result = document.execCommand('copy')
-  document.body.removeChild(textarea)
+  let result
+  try {
+    result = document.execCommand('copy')
+    document.body.removeChild(textarea)
+  } catch (error) {
+    console.error(error)
+  }
   return result
 }
 </script>

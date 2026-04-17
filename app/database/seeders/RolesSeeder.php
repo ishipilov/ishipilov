@@ -16,22 +16,6 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-		$role_admin = Role::where('name', 'admin')->first();
-		if (! $role_admin) $role_admin = Role::create(['name' => 'admin']);
-
-		$role_roles_manager = Role::where('name', 'roles manager')->first();
-		if (! $role_roles_manager) $role_roles_manager = Role::create(['name' => 'roles manager']);
-
-		$role_user = Role::where('name', 'user')->first();
-		if (! $role_user) $role_user = Role::create(['name' => 'user']);
-
-		$role_posts = Role::where('name', 'posts')->first();
-		if (! $role_posts) $role_posts = Role::create(['name' => 'posts']);
-
-		$role_uploads = Role::where('name', 'uploads')->first();
-		if (! $role_uploads) $role_uploads = Role::create(['name' => 'uploads']);
-
-
 		$permission_admin = Permission::where('name', 'admin')->first();
 		if (! $permission_admin) $permission_admin = Permission::create(['name' => 'admin']);
 
@@ -50,17 +34,37 @@ class RolesSeeder extends Seeder
 		$permission_memos = Permission::where('name', 'memos')->first();
 		if (! $permission_memos) $permission_memos = Permission::create(['name' => 'memos']);
 
+		$permission_passwords = Permission::where('name', 'passwords')->first();
+		if (! $permission_passwords) $permission_passwords = Permission::create(['name' => 'passwords']);
+
 		$permission_posts = Permission::where('name', 'posts')->first();
 		if (! $permission_posts) $permission_posts = Permission::create(['name' => 'posts']);
 
 		$permission_uploads = Permission::where('name', 'uploads')->first();
 		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'uploads']);
 
+
+		$role_admin = Role::where('name', 'admin')->first();
+		if (! $role_admin) $role_admin = Role::create(['name' => 'admin']);
+
+		$role_roles_manager = Role::where('name', 'roles manager')->first();
+		if (! $role_roles_manager) $role_roles_manager = Role::create(['name' => 'roles manager']);
+
+		$role_user = Role::where('name', 'user')->first();
+		if (! $role_user) $role_user = Role::create(['name' => 'user']);
+
 		
-        $role_admin->syncPermissions([$permission_admin, $permission_login_as]);
-        $role_roles_manager->syncPermissions([$permission_assign_role, $permission_remove_role]);
-		$role_user->syncPermissions([$permission_chat, $permission_memos]);
-        $role_posts->syncPermissions([$permission_posts]);
-        $role_uploads->syncPermissions([$permission_uploads]);
+        $role_admin->syncPermissions([$permission_admin]);
+        $role_roles_manager->syncPermissions([
+			$permission_assign_role,
+			$permission_remove_role
+		]);
+		$role_user->syncPermissions([
+			$permission_chat,
+			$permission_memos,
+			$permission_passwords,
+			$permission_posts,
+			$permission_uploads,
+		]);
     }
 }

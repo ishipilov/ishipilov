@@ -33,11 +33,6 @@
               <a class="nav-link" href="{{ route('chat.index') }}">{{ __('routes.web.chat.index') }}</a>
             </li>
           @endcan
-          @can('memos')
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('memos.index') }}">{{ __('routes.web.memos.index') }}</a>
-            </li>
-          @endcan
           @can('posts')
             <li class="nav-item">
               <a class="nav-link" href="{{ route('posts.index') }}">{{ __('routes.web.posts.index') }}</a>
@@ -73,6 +68,9 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              @can('memos')
+                <a class="dropdown-item" href="{{ route('memos.index') }}">{{ __('routes.web.memos.index') }}</a>
+              @endcan
               @hasrole('admin')
                 <h6 class="dropdown-header">{{ __('Admin') }}</h6>
                 @hasrole('roles manager')
