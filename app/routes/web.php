@@ -88,6 +88,7 @@ Route::middleware(['role:admin'])->group(function () {
   Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['role:roles manager'])->group(function () {
+      Route::resource('permissions', App\Http\Controllers\Admin\PermissionController::class)->except(['index', 'show']);
       Route::resource('roles', App\Http\Controllers\Admin\RoleController::class)->except(['show']);
     });
 

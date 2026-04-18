@@ -12,6 +12,7 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 use App\Models\ChatRoom;
 use App\Models\Post;
 use App\Models\User;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 // Home
@@ -126,6 +127,20 @@ Breadcrumbs::for('admin.roles.edit', function (BreadcrumbTrail $trail, Role $rol
     $trail->parent('admin.roles.index');
     $trail->push($role->name);
     $trail->push(Lang::get('routes.web.admin.roles.edit'), route('admin.roles.edit', $role));
+});
+
+// Home > Admin > Permissiona > Create
+Breadcrumbs::for('admin.permissions.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.roles.index');
+    $trail->push(Lang::get('routes.web.admin.permissions.create'), route('admin.permissions.create'));
+});
+
+// Home > Admin > Permissiona > Edit
+Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Permission $permission) {
+    $trail->parent('admin.roles.index');
+    $trail->push(Lang::get('routes.web.admin.permissions.index'));
+    $trail->push($permission->name);
+    $trail->push(Lang::get('routes.web.admin.permissions.edit'), route('admin.permissions.edit', $permission));
 });
 
 // Home > Admin > Users

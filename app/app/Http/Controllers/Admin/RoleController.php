@@ -16,8 +16,11 @@ class RoleController extends Controller
    */
   public function index()
   {
+    $permissions = Permission::orderBy('name')->get();
     $roles = Role::orderBy('name')->get();
-    return view('admin.roles.index')->withRoles($roles);
+    return view('admin.roles.index')
+    ->withPermissions($permissions)
+    ->withRoles($roles);
   }
 
   /**
@@ -41,7 +44,7 @@ class RoleController extends Controller
   public function store(Request $request)
   {
     $validated = $request->validate([
-      'name' => [ 'required', 'string'],
+      'name' => [ 'required', 'string', 'unique:roles'],
       'permissions' => [ 'required', 'array']
     ]);
     try {
@@ -92,7 +95,7 @@ class RoleController extends Controller
   public function update(Request $request, Role $role)
   {
     $validated = $request->validate([
-      'name' => [ 'required', 'string'],
+      'name' => [ 'required', 'string', 'unique:roles'],
       'permissions' => [ 'required', 'array']
     ]);
     try {

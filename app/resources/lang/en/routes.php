@@ -43,9 +43,17 @@ return [
     ],
     'admin' => [
       'index' => 'Admin',
+      'permissions' => [
+        'index' => 'Permissions',
+        'create' => 'Create Permission',
+        'store' => 'Store',
+        'edit' => 'Edit',
+        'update' => 'Update',
+        'destroy' => 'Delete',
+      ],
       'roles' => [
         'index' => 'Roles',
-        'create' => 'Create',
+        'create' => 'Create Role',
         'store' => 'Store',
         'edit' => 'Edit',
         'update' => 'Update',
