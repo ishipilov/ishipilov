@@ -16,10 +16,8 @@ class RoleController extends Controller
    */
   public function index()
   {
-    $permissions = Permission::orderBy('name')->get();
     $roles = Role::orderBy('name')->get();
     return view('admin.roles.index')
-    ->withPermissions($permissions)
     ->withRoles($roles);
   }
 

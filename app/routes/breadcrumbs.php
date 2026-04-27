@@ -129,16 +129,21 @@ Breadcrumbs::for('admin.roles.edit', function (BreadcrumbTrail $trail, Role $rol
     $trail->push(Lang::get('routes.web.admin.roles.edit'), route('admin.roles.edit', $role));
 });
 
+// Home > Admin > Permissions
+Breadcrumbs::for('admin.permissions.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.roles.index');
+    $trail->push(Lang::get('routes.web.admin.permissions.index'), route('admin.permissions.index'));
+});
+
 // Home > Admin > Permissiona > Create
 Breadcrumbs::for('admin.permissions.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.roles.index');
+    $trail->parent('admin.permissions.index');
     $trail->push(Lang::get('routes.web.admin.permissions.create'), route('admin.permissions.create'));
 });
 
 // Home > Admin > Permissiona > Edit
 Breadcrumbs::for('admin.permissions.edit', function (BreadcrumbTrail $trail, Permission $permission) {
-    $trail->parent('admin.roles.index');
-    $trail->push(Lang::get('routes.web.admin.permissions.index'));
+    $trail->parent('admin.permissions.index');
     $trail->push($permission->name);
     $trail->push(Lang::get('routes.web.admin.permissions.edit'), route('admin.permissions.edit', $permission));
 });

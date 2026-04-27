@@ -5,6 +5,7 @@
 
   <nav class="nav mb-3">
     <a class="nav-link" href="{{ route('admin.roles.create') }}">{{ __('routes.web.admin.roles.create') }}</a>
+    <a class="nav-link" href="{{ route('admin.permissions.index') }}">{{ __('routes.web.admin.permissions.index') }}</a>
   </nav>
 
   <div class="card mb-3">
@@ -15,20 +16,6 @@
           @foreach($role->getPermissionNames() as $permission_name)
             <span class="badge badge-secondary">{{ $permission_name }}</span>
           @endforeach
-        </a>
-      @endforeach
-    </div>
-  </div>
-
-  <nav class="nav mb-3">
-    <a class="nav-link" href="{{ route('admin.permissions.create') }}">{{ __('routes.web.admin.permissions.create') }}</a>
-  </nav>
-
-  <div class="card mb-3">
-    <div class="list-group list-group-flush">
-      @foreach ($permissions as $permission)
-        <a href="{{ route('admin.permissions.edit', $permission) }}" class="list-group-item list-group-item-action">
-          <span>{{ $permission->name }}</span>
         </a>
       @endforeach
     </div>
