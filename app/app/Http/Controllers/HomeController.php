@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::published()->ordered()->limit(10)->get();
+        $posts = Post::published()->ordered()->limit(5)->get();
         return view('home')->withPosts($posts);
     }
 
