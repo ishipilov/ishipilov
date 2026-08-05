@@ -6,7 +6,7 @@ return [
     'login' => 'Log in',
     'home' => 'Home',
     'public' => [
-      'torrent' => 'Torrent',
+      'index' => 'Public',
       'posts' => [
         'index' => 'Posts',
         'search' => 'Search',

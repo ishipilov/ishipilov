@@ -21,7 +21,6 @@ services:
       timeout: 10s
       retries: 3
 
-
   # Nginx Service
   webserver:
     image: nginx:alpine
